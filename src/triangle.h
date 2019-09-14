@@ -14,7 +14,7 @@ class Triangle: public Shape
             _side2 = sqrt(pow(_x2 - _x3,2) + pow(_y2 - _y3,2));
             _side3 = sqrt(pow(_x1 - _x3,2) + pow(_y1 - _y3,2));
 
-            if (!isIsoscelesTriangle())
+            if (!isIsoscelesTriangle() || formingError())
                 throw std::string("Not a IsoscelesTriangle.");
         }
         double area() const 
@@ -34,6 +34,12 @@ class Triangle: public Shape
                 return true;
             }
             else return false;
+        }
+        bool formingError()
+        {
+            if (_side1 + _side2 > _side3 && _side2 + _side3 > _side1 && _side1 + _side3 > _side2)
+                return false;
+            else return true;
         }
 
     private:
