@@ -1,3 +1,5 @@
+#ifndef ELLIPSE
+#define ELLIPSE
 #include <math.h>
 #include <algorithm>
 
@@ -23,3 +25,4 @@ class Ellipse: public Shape
     private:
         double _semiMajorAxes, _semiMinorAxes;
 };
+#endif

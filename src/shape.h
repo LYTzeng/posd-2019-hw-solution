@@ -1,3 +1,5 @@
+#ifndef SHAPE
+#define SHAPE
 #include <math.h>
 
 class Shape
@@ -8,3 +10,4 @@ class Shape
         virtual double perimeter() const = 0;
 
 };
+#endif

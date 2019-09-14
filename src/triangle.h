@@ -1,3 +1,5 @@
+#ifndef TRIANGLE
+#define TRIANGLE
 #include <math.h>
 #include <string>
 
@@ -36,3 +38,4 @@ class Triangle: public Shape
         double (&_point1)[2], (&_point2)[2], (&_point3)[2];
         double _side1, _side2, _side3;
 };
+#endif

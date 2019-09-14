@@ -1,3 +1,5 @@
+#ifndef CIRCULAR_SEC
+#define CIRCULAR_SEC
 #include <math.h>
 #include "shape.h"
 
@@ -17,3 +19,4 @@ class CircularSector: public Shape
     private:
         double _radius, _degree;
 };
+#endif
