@@ -2,6 +2,7 @@
 #define ELLIPSE
 #include <math.h>
 #include <algorithm>
+#include "shape.h"
 
 class Ellipse: public Shape
 {

@@ -2,6 +2,7 @@
 #define TRIANGLE
 #include <math.h>
 #include <string>
+#include "shape.h"
 
 class Triangle: public Shape
 {
