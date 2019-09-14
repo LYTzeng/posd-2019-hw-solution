@@ -1,4 +1,5 @@
 #include <math.h>
+#include "shape.h"
 
 class CircularSector: public Shape
 {
@@ -10,7 +11,7 @@ class CircularSector: public Shape
         }
         double perimeter() const
         {
-            return 2 * M_PI * _radius * (_degree/360);
+            return 2 * M_PI * _radius * (_degree/360) + 2 * _radius;
         }
 
     private:
