@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/circular_sector.h"
 #include "../src/ellipse.h"
-#include "../src/shape.h"
 #include "../src/triangle.h"
 
 int main(int argc,char ** argv)
@@ -27,11 +26,11 @@ TEST (UTShape, Ellipse)
 
 TEST (UTShape, Triangle)
 {
-    double point1[2] = {0.0, 0.0},
-            point2[2] = {0.0, 3.0},
+    double point1[2] = {0.0, -2.0},
+            point2[2] = {0.0, 2.0},
             point3[2] = {4.0, 0.0};
 
     Triangle triangle( point1, point2, point3);
-    ASSERT_EQ(6, triangle.area());
-    ASSERT_EQ(12, triangle.perimeter());
+    ASSERT_EQ(8, triangle.area());
+    ASSERT_NEAR(12.944272, triangle.perimeter(), 0.000001);
 }
