@@ -26,11 +26,7 @@ TEST (UTShape, Ellipse)
 
 TEST (UTShape, Triangle)
 {
-    double point1[2] = {0.0, -2.0},
-            point2[2] = {0.0, 2.0},
-            point3[2] = {4.0, 0.0};
-
-    Triangle triangle( point1, point2, point3);
+    Triangle triangle( 0.0, -2.0, 0.0, 2.0, 4.0, 0.0);
     ASSERT_EQ(8, triangle.area());
     ASSERT_NEAR(12.944272, triangle.perimeter(), 0.000001);
 }
