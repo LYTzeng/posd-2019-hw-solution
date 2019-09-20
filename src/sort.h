@@ -2,7 +2,7 @@
 #define SORT
 #include <algorithm>
 #include <vector>
-#include <string>
+#include <iterator>
 #include "./shape.h"
 
 class Sort
@@ -23,7 +23,7 @@ public:
     }
 
     template <class Compare>
-    void sortSumOfSquares(Compare comp) 
+    void sortSumOfSquares(Compare comp)
     {
         std::sort(_shapes->begin(), _shapes->end(), comp);
     }
@@ -31,15 +31,42 @@ public:
     template <class Compare>
     void quickSort(Compare comp)
     {
-        //TODO:
+        _quickSort(_shapes->begin(), _shapes->begin() + _shapes->size() - 1, comp);
     }
-    // quickSort() function should be function template
-    // You should write the quickSort by yourself!
-    // In the loop of the quickSort algorithm, use Iterator to control your vector rather than index.
-    // * **Example : for (std::vector<...>::iterator it...) * **
 
 private:
     std::vector<Shape *> *_shapes;
+
+    typedef std::vector<Shape *>::iterator Iterator;
+
+    template <class Compare>
+    Iterator _partition(Iterator left, Iterator right, Compare comp)
+    {
+        Iterator i = left - 1;
+        Iterator j;
+        for (j = left; j < right; j++)
+        {
+            if (comp(*j, *right))
+            {
+                i++;
+                std::iter_swap(i, j);
+            }
+        }
+
+        std::iter_swap(i + 1, right);
+        return i + 1;
+    }
+
+    template <class Compare>
+    void _quickSort(Iterator left, Iterator right, Compare comp)
+    {
+        if (left < right)
+        {
+            Iterator q = _partition(left, right, comp);
+            _quickSort(left, q - 1, comp);
+            _quickSort(q + 1, right, comp);
+        }
+    }
 };
 
 // implement following call back function
@@ -65,13 +92,13 @@ public:
     {
         if (sortByWhat == "area")
             return a->area() < b->area();
-        else if(sortByWhat == "perimeter")
+        else if (sortByWhat == "perimeter")
             return a->perimeter() < b->perimeter();
-        else if(sortByWhat == "sumOfSquares")
+        else if (sortByWhat == "sumOfSquares")
             return a->sumOfSquares() < b->sumOfSquares();
-        else throw "Wrong constructor parameter";
+        else
+            throw "Wrong constructor parameter";
     }
-private:
 };
 
 class DescendingComparison
@@ -83,13 +110,13 @@ public:
     {
         if (sortByWhat == "area")
             return a->area() > b->area();
-        else if(sortByWhat == "perimeter")
+        else if (sortByWhat == "perimeter")
             return a->perimeter() > b->perimeter();
-        else if(sortByWhat == "sumOfSquares")
+        else if (sortByWhat == "sumOfSquares")
             return a->sumOfSquares() > b->sumOfSquares();
-        else throw "Wrong constructor parameter";
+        else
+            throw "Wrong constructor parameter";
     }
-private:
 };
 
 #endif
