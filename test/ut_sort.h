@@ -14,7 +14,7 @@ class UTSort : public testing::Test
 protected:
     virtual void SetUp() override
     {
-        // area()       perimeter() sumOfSquares()
+        //                                                             // area()       perimeter() sumOfSquares()
         shapes.push_back(new CircularSector(5, 30));                   // 6.5449847    12.617994   202.05060
         shapes.push_back(new Ellipse(3, 4));                           // 37.699112    22.849556   1943.3253
         shapes.push_back(new Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0)); // 8            12.944272   231.55418
