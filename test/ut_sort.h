@@ -10,6 +10,7 @@
 #include "../src/shape.h"
 #include "../src/circular_sector.h"
 #include "../src/triangle.h"
+#include "../src/ellipse.h"
 
 class UTSort : public testing::Test
 {
