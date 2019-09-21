@@ -1,3 +1,5 @@
+#ifndef UT_SORT
+#define UT_SORT
 #include <algorithm>
 #include <gtest/gtest.h>
 #include <vector>
@@ -313,3 +315,5 @@ TEST_F(UTSort, SortWithObjByQuickSort)
         ASSERT_NEAR(sumOfSquaresDescending[i], temp->sumOfSquares(), 0.001);
     }
 }
+
+#endif
