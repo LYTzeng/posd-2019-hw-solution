@@ -31,17 +31,13 @@ protected:
 
 public:
     // Expcted orders
-    std::vector<double>areaAscending = {3.1415927, 6.5449847, 8, 37.699112, 251.32741};
-    std::vector<double>perimeterAscending = {12.617994, 12.944272, 13.047198, 22.849556, 58.265482};
-    std::vector<double>sumOfSquaresAscending = {180.09897, 202.05060, 231.55418, 1943.3253, 66560.335};
-    //TODO: quickSort()
-    // std::vector<double>quickSortAscending = {};
+    std::vector<double> areaAscending{3.1415927, 6.5449847, 8, 37.699112, 251.32741};
+    std::vector<double> perimeterAscending{12.617994, 12.944272, 13.047198, 22.849556, 58.265482};
+    std::vector<double> sumOfSquaresAscending{180.09897, 202.05060, 231.55418, 1943.3253, 66560.335};
 
-    std::vector<double>areaDescending = {251.32741, 37.699112, 8, 6.5449847, 3.1415927};
-    std::vector<double>perimeterDescending = {58.265482, 22.849556, 13.047198, 12.944272, 12.617994};
-    std::vector<double>sumOfSquaresDescending = {66560.335, 1943.3253, 231.55418, 202.05060, 180.09897};
-    //TODO: quickSort()
-    // std::vector<double>quickSortDescending = {};
+    std::vector<double> areaDescending{251.32741, 37.699112, 8, 6.5449847, 3.1415927};
+    std::vector<double> perimeterDescending{58.265482, 22.849556, 13.047198, 12.944272, 12.617994};
+    std::vector<double> sumOfSquaresDescending{66560.335, 1943.3253, 231.55418, 202.05060, 180.09897};
 };
 
 TEST_F(UTSort, SortWithLambda)
@@ -50,11 +46,9 @@ TEST_F(UTSort, SortWithLambda)
     auto lambdaAreaAscending = [](Shape *a, Shape *b) { return a->area() < b->area(); };
     auto lambdaPerimeterAscending = [](Shape *a, Shape *b) { return a->perimeter() < b->perimeter(); };
     auto lambdaSumOfSquaresAscending = [](Shape *a, Shape *b) { return a->sumOfSquares() < b->sumOfSquares(); };
-    auto lambdaQuickSortAscending = [](Shape *a, Shape *b) { return a->area() < b->area(); };
     auto lambdaAreaDescending = [](Shape *a, Shape *b) { return a->area() > b->area(); };
     auto lambdaPerimeterDescending = [](Shape *a, Shape *b) { return a->perimeter() > b->perimeter(); };
     auto lambdaSumOfSquaresDescending = [](Shape *a, Shape *b) { return a->sumOfSquares() > b->sumOfSquares(); };
-    auto lambdaQuickSortDescending = [](Shape *a, Shape *b) { return a->area() > b->area(); };
     Sort *sortShapes = new Sort(&shapes);
     // Iterator for vector Shape*
     std::vector<Shape *>::iterator shapePtr;
@@ -69,8 +63,6 @@ TEST_F(UTSort, SortWithLambda)
 
     sortShapes->sortPerimeter(lambdaPerimeterAscending);
     shapePtr = shapes.begin();
-    printf("%f\n%f\n%f\n", shapePtr[0]->perimeter(), shapePtr[1]->perimeter(), shapePtr[2]->perimeter());
-    printf("%f\n%f\n", shapePtr[3]->perimeter(), shapePtr[4]->perimeter());
     for (int i = 0; i < 5; ++i)
     {
         Shape *temp = *(shapePtr + i);
@@ -84,9 +76,6 @@ TEST_F(UTSort, SortWithLambda)
         Shape *temp = *(shapePtr + i);
         ASSERT_NEAR(sumOfSquaresAscending[i], temp->sumOfSquares(), 0.01);
     }
-
-    // //TODO: Test case
-    sortShapes->quickSort(lambdaQuickSortAscending);
 
     sortShapes->sortArea(lambdaAreaDescending);
     shapePtr = shapes.begin();
@@ -111,45 +100,216 @@ TEST_F(UTSort, SortWithLambda)
         Shape *temp = *(shapePtr + i);
         ASSERT_NEAR(sumOfSquaresDescending[i], temp->sumOfSquares(), 0.001);
     }
+}
 
-    //TODO:
-    sortShapes->quickSort(lambdaQuickSortDescending);
+TEST_F(UTSort, QuickSortLambda)
+{
+    // lambda
+    auto lambdaAreaAscending = [](Shape *a, Shape *b) { return a->area() < b->area(); };
+    auto lambdaPerimeterAscending = [](Shape *a, Shape *b) { return a->perimeter() < b->perimeter(); };
+    auto lambdaSumOfSquaresAscending = [](Shape *a, Shape *b) { return a->sumOfSquares() < b->sumOfSquares(); };
+    auto lambdaAreaDescending = [](Shape *a, Shape *b) { return a->area() > b->area(); };
+    auto lambdaPerimeterDescending = [](Shape *a, Shape *b) { return a->perimeter() > b->perimeter(); };
+    auto lambdaSumOfSquaresDescending = [](Shape *a, Shape *b) { return a->sumOfSquares() > b->sumOfSquares(); };
+    Sort *sortShapes = new Sort(&shapes);
+    // Iterator for vector Shape*
+    std::vector<Shape *>::iterator shapePtr;
+
+    sortShapes->quickSort(lambdaAreaAscending);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaAscending[i], temp->area(), 0.001);
+    }
+
+    sortShapes->quickSort(lambdaPerimeterAscending);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(perimeterAscending[i], temp->perimeter(), 0.001);
+    }
+
+    sortShapes->quickSort(lambdaSumOfSquaresAscending);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(sumOfSquaresAscending[i], temp->sumOfSquares(), 0.001);
+    }
 }
 
 TEST_F(UTSort, SortWithFunc)
 {
     // Function
     Sort *sortShapes = new Sort(&shapes);
+    std::vector<Shape *>::iterator shapePtr;
+
     sortShapes->sortArea(areaAscendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaAscending[i], temp->area(), 0.00001);
+    }
+
     sortShapes->quickSort(areaAscendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaAscending[i], temp->area(), 0.00001);
+    }
+
     sortShapes->sortArea(areaDescendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaDescending[i], temp->area(), 0.00001);
+    }
+
     sortShapes->quickSort(areaDescendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaDescending[i], temp->area(), 0.00001);
+    }
 }
 
-TEST_F(UTSort, ShapesSortByArea)
+TEST_F(UTSort, SortWithObjByArea)
 {
     // Objects' methods
     Sort *sortShapes = new Sort(&shapes);
+    std::vector<Shape *>::iterator shapePtr;
+
     AscendingComparison ascendingComparison("area");
     sortShapes->sortArea(ascendingComparison);
-    AscendingComparison descendingComparison("area");
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaAscending[i], temp->area(), 0.00001);
+    }
+
+    DescendingComparison descendingComparison("area");
     sortShapes->sortArea(descendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaDescending[i], temp->area(), 0.00001);
+    }
 }
-TEST_F(UTSort, ShapesSortByperimeter)
+
+TEST_F(UTSort, SortWithObjByPerimeter)
 {
     // Objects' methods
     Sort *sortShapes = new Sort(&shapes);
+    std::vector<Shape *>::iterator shapePtr;
+
     AscendingComparison ascendingComparison("perimeter");
     sortShapes->sortPerimeter(ascendingComparison);
-    AscendingComparison descendingComparison("perimeter");
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(perimeterAscending[i], temp->perimeter(), 0.00001);
+    }
+
+    DescendingComparison descendingComparison("perimeter");
     sortShapes->sortPerimeter(descendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(perimeterDescending[i], temp->perimeter(), 0.00001);
+    }
 }
-TEST_F(UTSort, ShapesSortBysumOfSquares)
+
+TEST_F(UTSort, SortWithObjBysumOfSquares)
 {
     // Objects' methods
     Sort *sortShapes = new Sort(&shapes);
+    std::vector<Shape *>::iterator shapePtr;
+
     AscendingComparison ascendingComparison("sumOfSquares");
     sortShapes->sortSumOfSquares(ascendingComparison);
-    AscendingComparison descendingComparison("sumOfSquares");
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(sumOfSquaresAscending[i], temp->sumOfSquares(), 0.001);
+    }
+
+    DescendingComparison descendingComparison("sumOfSquares");
     sortShapes->sortSumOfSquares(descendingComparison);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(sumOfSquaresDescending[i], temp->sumOfSquares(), 0.001);
+    }
+}
+
+TEST_F(UTSort, SortWithObjByQuickSort)
+{
+    Sort *sortShapes = new Sort(&shapes);
+    std::vector<Shape *>::iterator shapePtr;
+
+    AscendingComparison ascendingArea("area");
+    sortShapes->quickSort(ascendingArea);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaAscending[i], temp->area(), 0.00001);
+    }
+
+    DescendingComparison descendingArea("area");
+    sortShapes->sortArea(descendingArea);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(areaDescending[i], temp->area(), 0.00001);
+    }
+
+    AscendingComparison ascendingPerimeter("perimeter");
+    sortShapes->sortPerimeter(ascendingPerimeter);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(perimeterAscending[i], temp->perimeter(), 0.00001);
+    }
+
+    DescendingComparison descendingPerimeter("perimeter");
+    sortShapes->sortPerimeter(descendingPerimeter);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(perimeterDescending[i], temp->perimeter(), 0.00001);
+    }
+
+    AscendingComparison ascendingSumOfSquares("sumOfSquares");
+    sortShapes->sortSumOfSquares(ascendingSumOfSquares);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(sumOfSquaresAscending[i], temp->sumOfSquares(), 0.001);
+    }
+
+    DescendingComparison descendingSumOfSquares("sumOfSquares");
+    sortShapes->sortSumOfSquares(descendingSumOfSquares);
+    shapePtr = shapes.begin();
+    for (int i = 0; i < 5; ++i)
+    {
+        Shape *temp = *(shapePtr + i);
+        ASSERT_NEAR(sumOfSquaresDescending[i], temp->sumOfSquares(), 0.001);
+    }
 }
