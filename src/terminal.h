@@ -13,11 +13,13 @@
 #include "../src/triangle.h"
 #include "../src/sort.h"
 
-class UnusefulUserInput : public std::exception {
- public:
-    char * what () {
-      return "Unuseful User Input!";
-   }
+class UnusefulUserInput : public std::exception
+{
+public:
+    char *what()
+    {
+        return "Unuseful User Input!";
+    }
 };
 
 class Terminal
@@ -86,19 +88,26 @@ public:
     {
         if (_stringForSearch == "Unuseful User Input!")
         {
+            std::cout << "Unuseful User Input!" << std::endl;
             throw UnusefulUserInput();
         }
         std::smatch match;
         // Search for feature
         std::regex searchFeature(".*(area|perimeter|sumOfSquares).*");
         if (!std::regex_search(_stringForSearch, match, searchFeature))
+        {
+            std::cout << "Unuseful User Input!" << std::endl;
             throw UnusefulUserInput();
+        }
         _feature = match[1];
 
         // Search for order
         std::regex searchOrder(".*(inc|dec).*");
         if (!std::regex_search(_stringForSearch, match, searchOrder))
+        {
+            std::cout << "Unuseful User Input!" << std::endl;
             throw UnusefulUserInput();
+        }
         _order = match[1];
 
         // Assign _shapes to _sortShapes
