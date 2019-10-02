@@ -13,14 +13,14 @@
 #include "../src/triangle.h"
 #include "../src/sort.h"
 
-class UnusefulUserInput : public std::exception
-{
-public:
-    char *what()
-    {
-        return "Unuseful User Input!";
-    }
-};
+// class UnusefulUserInput : public std::exception
+// {
+// public:
+//     char *what()
+//     {
+//         return "Unuseful User Input!";
+//     }
+// };
 
 class Terminal
 {
@@ -89,7 +89,7 @@ public:
         if (_stringForSearch == "Unuseful User Input!")
         {
             std::cout << "Unuseful User Input!" << std::endl;
-            throw UnusefulUserInput();
+            throw std::string("Unuseful User Input!");
         }
         std::smatch match;
         // Search for feature
@@ -97,7 +97,7 @@ public:
         if (!std::regex_search(_stringForSearch, match, searchFeature))
         {
             std::cout << "Unuseful User Input!" << std::endl;
-            throw UnusefulUserInput();
+            throw std::string("Unuseful User Input!");
         }
         _feature = match[1];
 
@@ -106,7 +106,7 @@ public:
         if (!std::regex_search(_stringForSearch, match, searchOrder))
         {
             std::cout << "Unuseful User Input!" << std::endl;
-            throw UnusefulUserInput();
+            throw std::string("Unuseful User Input!");
         }
         _order = match[1];
 
