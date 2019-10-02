@@ -1,1 +1,1 @@
-CircularSector(5, 30) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) CircularSector(6, 10) Ellipse(8, 10)
+Ellipse (9,8) Triangle (0,0,5,0,0,5) CircularSector (9, 35)
