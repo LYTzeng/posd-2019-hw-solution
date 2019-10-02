@@ -320,8 +320,8 @@ TEST_F(UTSort, SortWithObjByQuickSort)
 
 TEST(TerminalTest, AreaAscending)
 {
-    Terminal *test = new Terminal("CircularSector(5, 30) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
-                                  "CircularSector(6, 10) Ellipse(8, 10) area inc");
+    Terminal *test = new Terminal("CircularSector(5,30) Ellipse(3,4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
+                                  "CircularSector(6,10) Ellipse(8,10) area inc");
     ASSERT_EQ("[3.141593, 6.544985, 8.000000, 37.699112, 251.327412]", test->showResult());
 }
 
@@ -334,8 +334,8 @@ TEST(TerminalTest, PerimeterDescending)
 
 TEST(TerminalTest, PerimeterDescendingWithSpecialCharacter)
 {
-    Terminal *test = new Terminal("CircularSector(5, 30) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
-                                  "CircularSector(6, 10) Ellipse$*&%$(8, 10) perimeter^&*^@# dec @^$#*(");
+    Terminal *test = new Terminal("CircularSector   (  5.0, 30 ) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
+                                  "CircularSector(6, 10   ) Ellipse$*&%$(8, 10) perimeter^&*^@# dec @^$#*(");
     ASSERT_EQ("[22.849556, 13.047198, 12.944272, 12.617994]", test->showResult());
 }
 

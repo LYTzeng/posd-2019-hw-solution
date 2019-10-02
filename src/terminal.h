@@ -30,10 +30,10 @@ public:
     {
         // Search for Shapes
         _stringForSearch = input;
-        std::regex regexSearchAllShapes("(Ellipse|CircularSector)[\\s]{0,}\\([\\s]{0,}[0-9]{1,}.?[0-9]{0,}[\\s]{0,},[\\s]{0,}[0-9]{1,}.?[0-9]{0,}[\\s]{0,}\\)|"
+        std::regex regexSearchAllShapes("(Ellipse|CircularSector)[\\s]{0,}\\([\\s]{0,}[0-9]{1,}\\.?[0-9]{0,}[\\s]{0,},[\\s]{0,}[0-9]{1,}\\.?[0-9]{0,}[\\s]{0,}\\)|"
                                         "(Triangle)[\\s]{0,}\\("
-                                        "([\\s]{0,}-?[0-9]{1,}.?[0-9]{0,}[\\s]{0,},){5}"
-                                        "[\\s]{0,}-?[0-9]{1,}.?[0-9]{0,}[\\s]{0,}\\)");
+                                        "([\\s]{0,}-?[0-9]{1,}\\.?[0-9]{0,}[\\s]{0,},){5}"
+                                        "[\\s]{0,}-?[0-9]{1,}\\.?[0-9]{0,}[\\s]{0,}\\)");
         std::smatch match;
         while (std::regex_search(_stringForSearch, match, regexSearchAllShapes))
         {
@@ -41,8 +41,8 @@ public:
             _stringForSearch = match.suffix().str();
         }
         // Search for Digits
-        std::regex searchPositiveNumbers("[0-9]{1,}.?[0-9]{0,}");
-        std::regex searchPosAndNegNumbers("-?[0-9]{1,}.?[0-9]{0,}");
+        std::regex searchPositiveNumbers("[0-9]{1,}\\.?[0-9]{0,}");
+        std::regex searchPosAndNegNumbers("-?[0-9]{1,}\\.?[0-9]{0,}");
         for (int i = 0; i < _shapesStr.size(); ++i)
         {
             if (std::regex_match(_shapesStr[i], std::regex("Ellipse.*")))
