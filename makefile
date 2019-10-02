@@ -10,7 +10,7 @@ Wfatal = -Wfatal-errors
 
 all: clean $(BIN)/ut_all
 
-$(BIN)/ut_all: $(TEST)/ut_main.cpp $(TEST)/ut_shape.h $(SRC)/circular_sector.h $(SRC)/ellipse.h $(SRC)/triangle.h  $(SRC)/sort.h $(SRC)/shape.h $(SRC)/main.cpp $(TEST)/ut_sort.h $(SRC)/terminal.h
+$(BIN)/ut_all: $(TEST)/ut_main.cpp $(SRC)/circular_sector.h $(SRC)/ellipse.h $(SRC)/triangle.h  $(SRC)/sort.h $(SRC)/shape.h $(SRC)/main.cpp $(TEST)/ut_sort.h $(SRC)/terminal.h
 	g++ $(CFLAGS) $(Wfatal) $(TEST)/ut_main.cpp -o $(BIN)/ut_all $(LIB)
 
 clean:
