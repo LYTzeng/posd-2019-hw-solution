@@ -6,6 +6,7 @@
 #include <iterator>
 #include <string>
 #include <stdio.h>
+#include <fstream>
 #include "../src/sort.h"
 #include "../src/shape.h"
 #include "../src/circular_sector.h"
@@ -318,6 +319,16 @@ TEST_F(UTSort, SortWithObjByQuickSort)
     }
 }
 
+TEST(TerminalTest, ReadFile)
+{
+    std::ifstream file;
+    file.open("input.txt");
+    std::string inputLine;
+    std::getline(file, inputLine);
+    file.close();
+    ASSERT_EQ("Ellipse (9,8) Triangle (0,0,5,0,0,5) CircularSector (9, 35)", inputLine);
+}
+
 TEST(TerminalTest, AreaAscending)
 {
     Terminal *test = new Terminal("CircularSector(5,30) Ellipse(3,4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
@@ -337,6 +348,28 @@ TEST(TerminalTest, PerimeterDescendingWithSpecialCharacter)
     Terminal *test = new Terminal("CircularSector   (  5.0, 30 ) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
                                   "CircularSector(6, 10   ) Ellipse$*&%$(8, 10) perimeter^&*^@# dec @^$#*(");
     ASSERT_EQ("[22.849556, 13.047198, 12.944272, 12.617994]", test->showResult());
+}
+
+TEST(TerminalTest, PerimeterDescendingWithInvalidEllipse)
+{
+    Terminal *test = new Terminal("CircularSector   (  5.0, 30 ) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
+                                  "CircularSector(6, 10   ) ellipse(8, 10) Ellipse(damn,son) Ellipse(???,\n\t\r) perimeter dec");
+    ASSERT_EQ("[22.849556, 13.047198, 12.944272, 12.617994]", test->showResult());
+}
+
+TEST(TerminalTest, UnusefulInputException)
+{
+    try
+    {
+        Terminal *test = new Terminal("CircularSector(5,30) Ellipse(3,4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
+                                      "CircularSector(6,10) Ellipse(8,10) area");
+        test->showResult();
+        FAIL() << "Expected exception";
+    }
+    catch(std::string e)
+    {
+        EXPECT_EQ(e, "Unuseful User Input!");
+    }
 }
 
 #endif
