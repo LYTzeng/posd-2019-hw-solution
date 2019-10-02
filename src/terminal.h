@@ -6,11 +6,19 @@
 #include <vector>
 #include <iterator>
 #include <sstream>
+#include <exception>
 #include "../src/shape.h"
 #include "../src/ellipse.h"
 #include "../src/circular_sector.h"
 #include "../src/triangle.h"
 #include "../src/sort.h"
+
+class UnusefulUserInput : public std::exception {
+ public:
+    char * what () {
+      return "Unuseful User Input!";
+   }
+};
 
 class Terminal
 {
@@ -78,19 +86,19 @@ public:
     {
         if (_stringForSearch == "Unuseful User Input!")
         {
-            throw std::string("Unuseful User Input!");
+            throw UnusefulUserInput();
         }
         std::smatch match;
         // Search for feature
         std::regex searchFeature(".*(area|perimeter|sumOfSquares).*");
         if (!std::regex_search(_stringForSearch, match, searchFeature))
-            throw std::string("Unuseful User Input!");
+            throw UnusefulUserInput();
         _feature = match[1];
 
         // Search for order
         std::regex searchOrder(".*(inc|dec).*");
         if (!std::regex_search(_stringForSearch, match, searchOrder))
-            throw std::string("Unuseful User Input!");
+            throw UnusefulUserInput();
         _order = match[1];
 
         // Assign _shapes to _sortShapes
