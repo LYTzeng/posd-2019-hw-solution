@@ -17,7 +17,7 @@ clean:
 	rm -f $(BIN)/*
 	mkdir -p $(BIN)
 
-hw3: clean $(BIN)/main
+hw3: clean $(BIN)/geo
 
-$(BIN)/main: $(SRC)/main.cpp
-	g++ $(CFLAGS) $(Wfatal) $(SRC)/main.cpp -o $(BIN)/main $(LIB)
+$(BIN)/geo: $(SRC)/main.cpp
+	g++ $(CFLAGS) $(Wfatal) $(SRC)/main.cpp -o $(BIN)/geo $(LIB)
