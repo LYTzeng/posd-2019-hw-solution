@@ -11,6 +11,7 @@
 #include "../src/circular_sector.h"
 #include "../src/triangle.h"
 #include "../src/ellipse.h"
+#include "../src/terminal.h"
 
 class UTSort : public testing::Test
 {
@@ -315,6 +316,13 @@ TEST_F(UTSort, SortWithObjByQuickSort)
         Shape *temp = *(shapePtr + i);
         ASSERT_NEAR(sumOfSquaresDescending[i], temp->sumOfSquares(), 0.001);
     }
+}
+
+TEST(TerminalTest, AreaDescending)
+{
+    Terminal *test = new Terminal("CircularSector(5, 30) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
+                                  "CircularSector(6, 10) Ellipse(8, 10) area dec");
+    ASSERT_EQ("[251.327412, 37.699112, 8.000000, 6.544985, 3.141593]", test->showResult());
 }
 
 #endif
