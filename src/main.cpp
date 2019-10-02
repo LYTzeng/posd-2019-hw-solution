@@ -28,7 +28,7 @@ int main(int argc, char **argv)
         std::ofstream wrFile;
         wrFile.open(outputPath);
         Terminal terminal(inputLine + " " + featureArg + " " + orderingArg);
-        wrFile << terminal.showResult() << "\n";
+        wrFile << terminal.showResult();
         wrFile.close();
         return 0;
     }

@@ -335,7 +335,7 @@ TEST(TerminalTest, PerimeterDescending)
 TEST(TerminalTest, PerimeterDescendingWithSpecialCharacter)
 {
     Terminal *test = new Terminal("CircularSector(5, 30) Ellipse(3, 4) Triangle(0.0, -2.0, 0.0, 2.0, 4.0, 0.0) "
-                                  "CircularSector(6, 10) Ellipse$*&%$(8, 10) perimeter dec @^$#*(");
+                                  "CircularSector(6, 10) Ellipse$*&%$(8, 10) perimeter^&*^@# dec @^$#*(");
     ASSERT_EQ("[22.849556, 13.047198, 12.944272, 12.617994]", test->showResult());
 }
 
