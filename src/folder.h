@@ -108,7 +108,7 @@ public:
         // if the folder path is the result itself
         if (Node::name() == name)
         {
-            searchResult.append(Node::relativePath());
+            searchResult.append("");
             searchResult.append("\n");
         }
         int childNum = 0;

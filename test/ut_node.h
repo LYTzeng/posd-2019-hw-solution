@@ -78,7 +78,13 @@ TEST(ListNode, TestListNode)
 TEST(FindNode, TestFileFindNodeSelf)
 {
     Node *file = new File("./test/test_folder/folder/searchA.txt");
-    ASSERT_EQ("./test/test_folder/folder/searchA.txt", file->findNode("searchA.txt"));
+    ASSERT_EQ("searchA.txt", file->findNode("searchA.txt"));
+}
+
+TEST(FindNode, TestFolderFindNodeSelf)
+{
+    Node *folder = new Folder("./test/test_folder/folder");
+    ASSERT_EQ("", folder->findNode("folder"));
 }
 
 TEST(FindNode, TestFolderFindNodeMultiple)
