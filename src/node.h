@@ -58,9 +58,15 @@ public:
         return match.str(0);
     }
 
-    virtual std::string findNode(std::string searchString)
+    virtual std::string relativePath()
     {
-        if (Node::name() == searchString)
+        return _path;
+    }
+
+    virtual std::string findNode(std::string name)
+    {
+        // If the node is a file and == search string
+        if (Node::name() == name)
             return _path;
         // else search no results
         else
@@ -74,22 +80,10 @@ public:
         throw(std::string("Not a directory"));
     }
 
+    virtual std::string traverseSearch(std::string name){}
+
 private:
     std::string _path;
     struct stat _st;
 };
-
-//pratice here
-int infoByte(Node *node)
-{
-    int total = 0;
-    if (node->getChild(0) != nullptr)
-    { //it's a folder
-        for (int i = 0; i < 2; i++)
-        {
-            total += node->getChild(i)->size();
-        }
-    }
-    return total;
-}
 #endif

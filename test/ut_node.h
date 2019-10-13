@@ -71,7 +71,7 @@ TEST(ListNode, TestListNodeOnFileException)
 
 TEST(ListNode, TestListNode)
 {
-    Node *folder = new Folder("./test/test_folder/folder");
+    Folder *folder = new Folder("./test/test_folder/folder");
     ASSERT_EQ("A B searchA.txt searchB.txt", folder->listNode());
 }
 
@@ -87,8 +87,8 @@ TEST(FindNode, TestFileFindNodeSelf)
     ASSERT_EQ("./test/test_folder/folder/searchA.txt", file->findNode("searchA.txt"));
 }
 
-// TEST(FindNode, TestFolderFindNodeMultiple)
-// {
-//     Node *folder = new Folder("./test/test_folder/folder");
-//     ASSERT_EQ("test/test_folder/folder/A/searchA.txt\ntest/test_folder/folder/searchA.txt", file->findNode("searchA.txt"));
-// }
+TEST(FindNode, TestFolderFindNodeMultiple)
+{
+    Node *folder = new Folder("./test/test_folder/folder");
+    ASSERT_EQ("./test/test_folder/folder/A/searchA.txt\n./test/test_folder/folder/searchA.txt", folder->findNode("searchA.txt"));
+}
