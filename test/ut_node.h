@@ -72,13 +72,7 @@ TEST(ListNode, TestListNodeOnFileException)
 TEST(ListNode, TestListNode)
 {
     Folder *folder = new Folder("./test/test_folder/folder");
-    ASSERT_EQ("A B searchA.txt searchB.txt", folder->listNode());
-}
-
-TEST(ListNode, TestListNodeEmptyDir)
-{
-    Node *folder = new Folder("./test/test_folder/folder/B");
-    ASSERT_EQ("", folder->listNode());
+    ASSERT_EQ("A searchA.txt searchB.txt", folder->listNode());
 }
 
 TEST(FindNode, TestFileFindNodeSelf)
