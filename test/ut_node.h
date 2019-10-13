@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "../src/file.h"
 #include "../src/folder.h"
 #include "../src/node.h"
@@ -80,8 +81,14 @@ TEST(ListNode, TestListNodeEmptyDir)
     ASSERT_EQ("", folder->listNode());
 }
 
+TEST(FindNode, TestFileFindNodeSelf)
+{
+    Node *file = new File("./test/test_folder/folder/searchA.txt");
+    ASSERT_EQ("./test/test_folder/folder/searchA.txt", file->findNode("searchA.txt"));
+}
+
 // TEST(FindNode, TestFolderFindNodeMultiple)
 // {
-//     Node *file = new Folder("./test/test_folder/folder");
-//     ASSERT_EQ("./searchA.txt\n./A/searchA.txt", file->findNode("searchA.txt"));
+//     Node *folder = new Folder("./test/test_folder/folder");
+//     ASSERT_EQ("test/test_folder/folder/A/searchA.txt\ntest/test_folder/folder/searchA.txt", file->findNode("searchA.txt"));
 // }

@@ -4,6 +4,7 @@
 #include <string>
 #include <sys/stat.h>
 #include <regex>
+#include <iostream>
 
 class Node
 {
@@ -22,8 +23,9 @@ public:
             nodeType = "folder";
             break;
         }
-
     }
+
+    std::string nodeType;
 
     int size()
     {
@@ -56,12 +58,19 @@ public:
         return match.str(0);
     }
 
-    std::string nodeType;
-
-    virtual std::string findNode(std::string name) {}
-
-    virtual std::string listNode() 
+    virtual std::string findNode(std::string searchString)
     {
+        if (Node::name() == searchString)
+            return _path;
+        // else search no results
+        else
+            return "\0";
+    }
+
+    virtual std::string listNode()
+    {
+        // If node is file, it can't listNode.
+        // It should throw "Not a directory"
         throw(std::string("Not a directory"));
     }
 

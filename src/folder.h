@@ -15,8 +15,7 @@ public:
         if (nodeType != "folder")
             throw(std::string("It is not Folder!"));
 
-        DIR *opendir(const char *name);
-        _directory = opendir(path.c_str());
+        _createDIR(path);
     }
 
     void addChild(Node *child)
@@ -39,7 +38,7 @@ public:
         return total;
     }
 
-    std::string findNode(std::string name)
+    std::string findNode(std::string name) override
     {
         //TODO:
         // implementation findNode
@@ -47,30 +46,26 @@ public:
         // file->findNode(name) that should find itself.
         // if find two nodes or more than two nodes.
         // Result should be separated by '\n'.
+
     }
 
-    std::string listNode()
+    std::string listNode() override
     {
-        //TODO:
         // implementation list child Node and Sort by dictionary
         // Result should be separated by space
         // For example:
         // Folder contains childnode "a.out" and "TA_folder" and "hello.txt"
         // It should return "TA_folder a.out hello.txt"
-        // If node is file, it can't listNode.
-        // It should throw "Not a directory"
         // For Example: TA_file->listNode()
-        struct dirent *readdir(DIR * dirp);
-        int closedir(DIR * dirp);
-        struct dirent *currentEntry;
+        std::string nodeList;
 
-        while ((currentEntry = readdir(_directory)) != NULL)
+        while ((_currentEntry = readdir(_directory)) != NULL)
         {
             std::string S;
-            S.assign(currentEntry->d_name);
+            S.assign(_currentEntry->d_name);
             if (S == "." || S == "..")
                 continue;
-            nodeList.append(currentEntry->d_name);
+            nodeList.append(_currentEntry->d_name);
             nodeList.append(" ");
         }
         if (nodeList.size() > 0)
@@ -79,9 +74,22 @@ public:
         return nodeList;
     }
 
+    ~Folder()
+    {
+        closedir(_directory);
+    }
+
 private:
     std::vector<Node *> _v;
     DIR *_directory;
-    std::string nodeList;
+    struct dirent *_currentEntry;
+
+    void _createDIR(std::string path)
+    {
+        struct dirent *readdir(DIR * dirp);
+        int closedir(DIR * dirp);
+        DIR *opendir(const char *name);
+        _directory = opendir(path.c_str());
+    }
 };
 #endif

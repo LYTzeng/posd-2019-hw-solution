@@ -15,16 +15,6 @@ public:
             throw(std::string("It is not File!"));
     }
 
-    std::string findNode(std::string name)
-    {
-        //TODO:
-        // implementation findNode
-        // folder->findNode(name) that should find all nodes(include child nodes and all offspring) under it.
-        // file->findNode(name) that should find itself.
-        // if find two nodes or more than two nodes.
-        // Result should be separated by '\n'.
-    }
-
 private:
 
 };
