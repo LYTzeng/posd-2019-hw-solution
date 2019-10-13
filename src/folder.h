@@ -52,7 +52,26 @@ public:
         // file->findNode(name) that should find itself.
         // if find two nodes or more than two nodes.
         // Result should be separated by '\n'.
-        std::string searchResult = traverseSearch(name);
+        std::string searchResult;
+        std::set<std::string> searchSet;
+
+        std::string traverseResult = traverseSearch(name);
+
+        std::string delimiter = "\n";
+        size_t pos = 0;
+        std::string singleNodeName;
+        while ((pos = traverseResult.find(delimiter)) != std::string::npos)
+        {
+            singleNodeName = traverseResult.substr(0, pos);
+            searchSet.insert(singleNodeName);
+            traverseResult.erase(0, pos + delimiter.length());
+        }
+
+        for (std::string element : searchSet)
+        {
+            searchResult.append(element);
+            searchResult.append("\n");
+        }
         if (searchResult.size() > 0)
             searchResult.erase(searchResult.size() - 1);
         return searchResult;
@@ -112,12 +131,12 @@ public:
 
     std::string traverseSearch(std::string name)
     {
-        std::string searchResult;
+        std::string traverseResult;
         // if the folder path is the result itself
         if (Node::name() == name)
         {
-            searchResult.append(Node::relativePath());
-            searchResult.append("\n");
+            traverseResult.append(Node::relativePath());
+            traverseResult.append("\n");
         }
         int childNum = 0;
         for (childNum; childNum < _v.size(); ++childNum)
@@ -126,18 +145,18 @@ public:
             // file name match the search string
             if (currentNode->nodeType == "file" && currentNode->name() == name)
             {
-                searchResult.append(currentNode->relativePath());
-                searchResult.append("\n");
+                traverseResult.append(currentNode->relativePath());
+                traverseResult.append("\n");
             }
             // search for nodes under folder
             if (currentNode->nodeType == "folder")
             {
-                std::string subSearchResult;
-                subSearchResult = currentNode->traverseSearch(name);
-                searchResult.append(subSearchResult);
+                std::string subtraverseResult;
+                subtraverseResult = currentNode->traverseSearch(name);
+                traverseResult.append(subtraverseResult);
             }
         }
-        return searchResult;
+        return traverseResult;
     }
 
 private:
