@@ -7,6 +7,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <iterator>
+#include <set>
 #include "node.h"
 
 using strIterator = std::vector<std::string>::iterator;
@@ -66,17 +67,17 @@ public:
         // It should return "TA_folder a.out hello.txt"
         // For Example: TA_file->listNode()
         std::string nodeList;
-        std::vector<std::string> children = _collectChildren();
+        std::set<std::string> sortedNodes;
 
-        // for (int childNum = 0; childNum < _v.size(); ++childNum)
-        // {
-        //     Node *currentNode = getChild(childNum);
-        //     nodeList.append(currentNode->name());
-        //     nodeList.append(" ");
-        // }
-        for (strIterator it = children.begin(); it != children.end(); ++it)
+        for (int childNum = 0; childNum < _v.size(); ++childNum)
         {
-            nodeList.append(*it);
+            Node *currentNode = getChild(childNum);
+            sortedNodes.insert(currentNode->name());
+        }
+
+        for (std::string node : sortedNodes)
+        {
+            nodeList.append(node);
             nodeList.append(" ");
         }
 
