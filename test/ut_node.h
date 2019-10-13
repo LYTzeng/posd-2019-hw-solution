@@ -84,7 +84,7 @@ TEST(FindNode, TestFileFindNodeSelf)
 TEST(FindNode, TestFolderFindNodeSelf)
 {
     Node *folder = new Folder("./test/test_folder/folder");
-    ASSERT_EQ("", folder->findNode("folder"));
+    ASSERT_EQ("./test/test_folder/folder", folder->findNode("folder"));
 }
 
 TEST(FindNode, TestFolderFindNodeMultiple)
