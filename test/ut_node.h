@@ -75,20 +75,26 @@ TEST(ListNode, TestListNode)
     // ASSERT_EQ("A searchA.txt searchB.txt", folder->listNode());
 }
 
-TEST(FindNode, TestFileFindNodeSelf)
+TEST(FindNode, TestFileFindFileSelf)
 {
     Node *file = new File("./test/test_folder/folder/searchA.txt");
     ASSERT_EQ("searchA.txt", file->findNode("searchA.txt"));
 }
 
-TEST(FindNode, TestFolderFindNodeSelf)
+TEST(FindNode, TestFolderFindFolderSelf)
 {
     Node *folder = new Folder("./test/test_folder/folder");
     ASSERT_EQ("./test/test_folder/folder", folder->findNode("folder"));
 }
 
-TEST(FindNode, TestFolderFindNodeMultiple)
+TEST(FindNode, TestFolderFindFileMultiple)
 {
     Node *folder = new Folder("./test/test_folder/folder");
     ASSERT_EQ("./test/test_folder/folder/A/searchA.txt\n./test/test_folder/folder/searchA.txt", folder->findNode("searchA.txt"));
+}
+
+TEST(FindNode, TestFolderFindFolderMultiple)
+{
+    Node *folder = new Folder("./test/test_folder");
+    ASSERT_EQ("./test/test_folder/A\n./test/test_folder/folder/A", folder->findNode("A"));
 }
