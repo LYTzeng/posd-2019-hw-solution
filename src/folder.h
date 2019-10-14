@@ -113,6 +113,7 @@ public:
 
     void traverseAdd()
     {
+        // Traverse the whole file system automatically and add Node to composite
         std::vector<std::string> children = _collectChildren();
         for (strIterator it = children.begin(); it != children.end(); ++it)
         {
