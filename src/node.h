@@ -67,7 +67,7 @@ public:
     {
         // If the node is a file and == search string
         if (Node::name() == name)
-            return _path + "/" + name;
+            return name;
         // else search no results
         else
             return "\0";

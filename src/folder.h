@@ -20,8 +20,6 @@ public:
     {
         if (nodeType != "folder")
             throw(std::string("It is not Folder!"));
-
-        traverseAdd();
     }
 
     void addChild(Node *child)
@@ -69,8 +67,14 @@ public:
 
         for (std::string element : searchSet)
         {
-            searchResult.append(element);
-            searchResult.append("\n");
+            std::string parsed;
+            element.erase(0, _path.length());
+            if (element != "")
+            {
+                element = "." + element;
+                searchResult.append(element);
+                searchResult.append("\n");
+            }
         }
         if (searchResult.size() > 0)
             searchResult.erase(searchResult.size() - 1);
@@ -109,24 +113,6 @@ public:
     std::string relativePath() override
     {
         return _path + "/" + Node::name();
-    }
-
-    void traverseAdd()
-    {
-        std::vector<std::string> children = _collectChildren();
-        for (strIterator it = children.begin(); it != children.end(); ++it)
-        {
-            try
-            {
-                Node *childFolder = new Folder(_path + "/" + *it);
-                Folder::addChild(childFolder);
-            }
-            catch (std::string err)
-            {
-                Node *childFile = new File(_path + "/" + *it);
-                Folder::addChild(childFile);
-            }
-        }
     }
 
     std::string traverseSearch(std::string name)
