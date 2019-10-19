@@ -1,6 +1,8 @@
 #ifndef SOLID
 #define SOLID
 
+#include <string>
+
 class Solid
 {
   public:
