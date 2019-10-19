@@ -13,7 +13,7 @@ class TriangularPyramid : public Solid
         _b = _edge(x1, y1, x3, y3);
         _c = _edge(x2, y2, x3, y3);
         if (_a + _b <= _c || _c + _b <= _a || _a + _c <= _b)
-            throw("Bottom is not a Triangle!");
+            throw(std::string("Bottom is not a Triangle!"));
         _s = (_a + _b + _c) / 2.0;
     }
     double bottomArea() const override
