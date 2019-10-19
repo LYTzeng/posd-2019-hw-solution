@@ -36,7 +36,7 @@ class ComplexSolids : public Solid
         }
         return sum;
     }
-    int numberOfChild()
+    int numberOfChild() override
     {
         return _solids->size();
     }
