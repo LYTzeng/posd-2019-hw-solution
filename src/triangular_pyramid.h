@@ -1,6 +1,7 @@
 #ifndef TRIANGULAR_PYR
 #define TRIANGULAR_PYR
 
+#include <math.h>
 #include "solid.h"
 
 class TriangularPyramid : public Solid
