@@ -32,7 +32,7 @@ TEST(TRIANGULAR, TestTriangularPyramid)
     ASSERT_NEAR(10, triangularPyramid->volume(), 0.0000001);
 }
 
-TEST(COMPLEX, TestAdd)
+TEST(COMPLEX, TestAdd_BottomArea_Volume)
 {
     std::vector<Solid *> solids;
     solids.push_back(new Cone(0, 0, 1, 1, 5));
@@ -42,5 +42,17 @@ TEST(COMPLEX, TestAdd)
     ASSERT_NEAR(10.2831853, complexSolids->bottomArea(), 0.00001);
     ASSERT_NEAR(22.4719756, complexSolids->volume(), 0.00001);
     ASSERT_EQ(2, complexSolids->numberOfChild());
+}
+
+TEST(CONPLEX, FIND)
+{
+    std::vector<Solid *> solids;
+    ComplexSolids *complexSolids = new ComplexSolids(&solids);
+    complexSolids->add(new SquareCylinder(2, 3)); // vol=12 bot=4
+    complexSolids->add(new Cone(0, 0, 1, 1, 5)); // vol=10.4719756 bot=6.2831853
+    complexSolids->add(new TriangularPyramid(0, 0, 0, 4, 3, 0, 5)); // vol=10 bot=6
+    std::vector<Solid *> findResult = complexSolids->find(9, 10, 5, 6.1111); 
+    ASSERT_NEAR(6, findResult[0]->bottomArea(), 0.0001);
+    ASSERT_NEAR(10, findResult[0]->volume(), 0.0001);
 }
 #endif

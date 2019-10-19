@@ -40,6 +40,16 @@ class ComplexSolids : public Solid
     {
         return _solids->size();
     }
+    std::vector<Solid *> find(double volumeMin, double volumeMax, double bottomAreaMin, double bottomAreaMax) override
+    {
+        std::vector<Solid *> findResult;
+        for (solidPtrIterator it = _solids->begin(); it != _solids->end(); it++)
+        {
+            std::vector<Solid *> childResult = (*it)->find(volumeMin, volumeMax, bottomAreaMin, bottomAreaMax);
+            findResult.insert(findResult.begin(), childResult.begin(), childResult.end());
+        }
+        return findResult;
+    }
 
   private:
     std::vector<Solid *> *_solids;
