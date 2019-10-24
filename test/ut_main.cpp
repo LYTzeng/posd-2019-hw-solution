@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "ut_solid.h"
+#include "ut_node.h"
 
 int main(int argc, char ** argv)
 {
