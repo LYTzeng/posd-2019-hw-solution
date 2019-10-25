@@ -19,6 +19,7 @@ protected:
         hf_txt = new File("test/test_folder/hf.txt");
         test_folder = new Folder("test/test_folder");
         hw_hello_txt = new File("test/test_folder/hw/hello.txt");
+        empty = new Folder("test/test_folder/empty");
         hw->addChild(a_out);
         hw->addChild(hw1_cpp);
         hw->addChild(hw_hello_txt);
@@ -44,6 +45,7 @@ protected:
     Node *test_folder;
     Utilities *utilities;
     File *hw_hello_txt;
+    Folder *empty;
 };
 
 TEST(StatApi, GetSize)
@@ -131,6 +133,18 @@ TEST_F(NodeTest, FolderIteratorException)
     catch (std::string e)
     {
         ASSERT_EQ("Moving past the end!", e);
+    }
+
+    try
+    {
+        it = empty->createIterator();
+        it->first();
+        it->currentItem();
+        FAIL() << "Expected exceptional exception";
+    }
+    catch (std::string e)
+    {
+        ASSERT_EQ("No current item!", e);
     }
 }
 

@@ -24,14 +24,14 @@ public:
 
         Node *currentItem() override
         {
-            if ((_current) == _f->_map.end())
+            if (_f->_map.size() == 0 || (_current) == _f->_map.end())
                 throw std::string("No current item!");
             return _current->second;
         }
 
         void next() override
         {
-            if ((_current++) == _f->_map.end())
+            if (_f->_map.size() == 0 || (_current++) == _f->_map.end())
                 throw std::string("Moving past the end!");
         }
 
