@@ -122,21 +122,15 @@ TEST_F(NodeTest, FolderIteratorException)
     it->first();
     it->next();
     it->next();
+    it->next();
     try
     {
         it->next();
+        FAIL() << "Expected exceptional exception";
     }
     catch (std::string e)
     {
         ASSERT_EQ("Moving past the end!", e);
-    }
-    try
-    {
-        it->currentItem();
-    }
-    catch (std::string e)
-    {
-        ASSERT_EQ("No current item!", e);
     }
 }
 
@@ -144,33 +138,33 @@ TEST_F(NodeTest, FileCallIteratorMethodException)
 {
     Iterator *it;
     it = hello_txt->createIterator();
+
     try
     {
         it->first();
+        FAIL() << "Expected exceptional exception";
     }
     catch (std::string e)
     {
         ASSERT_EQ("no child member", e);
     }
+
     try
     {
         it->next();
+        FAIL() << "Expected exceptional exception";
     }
     catch (std::string e)
     {
         ASSERT_EQ("no child member", e);
     }
-    try
-    {
-        it->isDone();
-    }
-    catch (std::string e)
-    {
-        ASSERT_EQ("no child member", e);
-    }
+
+    ASSERT_TRUE(it->isDone());
+
     try
     {
         it->currentItem();
+        FAIL() << "Expected exceptional exception";
     }
     catch (std::string e)
     {
@@ -188,6 +182,7 @@ TEST_F(NodeTest, ListNodeOnFileException)
     try
     {
         utilities->listNode(a_out);
+        FAIL() << "Expected exceptional exception";
     }
     catch (std::string e)
     {

@@ -24,7 +24,7 @@ public:
 
         Node *currentItem() override
         {
-            if ((_current++) == _f->_map.end())
+            if ((_current) == _f->_map.end())
                 throw std::string("No current item!");
             return _current->second;
         }
