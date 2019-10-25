@@ -34,7 +34,7 @@ public:
 
     virtual void addChild(Node *child)
     {
-        throw(std::string("Invalid add!"));
+        // throw(std::string("Invalid add!"));
     }
 
     std::string name()
