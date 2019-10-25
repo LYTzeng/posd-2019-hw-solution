@@ -53,8 +53,8 @@ public:
 public:
     Folder(std::string path) : Node(path)
     {
-        if (nodeType != "folder")
-            throw(std::string("It is not Folder!"));
+        // if (nodeType != "folder")
+        //     throw(std::string("It is not Folder!"));
     }
 
     void addChild(Node *child)

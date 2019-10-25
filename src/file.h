@@ -12,8 +12,8 @@ class File : public Node
 public:
     File(std::string path) : Node(path)
     {
-        if (nodeType != "file")
-            throw(std::string("It is not File!"));
+        // if (nodeType != "file")
+        //     throw(std::string("It is not File!"));
     }
 
     Iterator *createIterator()
