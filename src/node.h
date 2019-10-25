@@ -11,9 +11,9 @@ class Node
 public:
     Node(std::string path) : _path(path)
     {
-        if (stat(_path.c_str(), &_st) != 0)
-            throw(std::string("Node is not exist!"));
-
+        // if (stat(_path.c_str(), &_st) != 0)
+        //     throw(std::string("Node is not exist!"));
+        stat(_path.c_str(), &_st);
         switch (_st.st_mode & S_IFMT)
         {
         case S_IFREG:
