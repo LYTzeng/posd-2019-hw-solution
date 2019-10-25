@@ -3,40 +3,29 @@
 
 #include <string>
 #include <sys/stat.h>
+#include <regex>
+#include "iterator.h"
 
 class Node
 {
 public:
-    class Iterator
-    {
-    public:
-        virtual bool isDone() = 0;
-        virtual void first() = 0;
-        virtual void next() = 0;
-        virtual Node *currentItem() = 0;
-    };
-
-public:
-    class NullIterator : public Iterator
-    {
-    public:
-        bool isDone()
-        {
-            return true;
-        }
-        void first() {}
-        void next() {}
-        Node *currentItem()
-        {
-            return nullptr;
-        }
-    };
-
-public:
     Node(std::string path) : _path(path)
     {
-        stat(_path.c_str(), &_st);
+        if (stat(_path.c_str(), &_st) != 0)
+            throw(std::string("Node is not exist!"));
+
+        switch (_st.st_mode & S_IFMT)
+        {
+        case S_IFREG:
+            nodeType = "file";
+            break;
+        case S_IFDIR:
+            nodeType = "folder";
+            break;
+        }
     }
+
+    std::string nodeType;
 
     int size()
     {
@@ -48,14 +37,26 @@ public:
         throw(std::string("Invalid add!"));
     }
 
-    virtual Iterator *createIterator()
+    std::string name()
     {
-        return new NullIterator();
+        std::smatch match;
+        std::regex matchName("([^\\/]+$)");
+        std::regex_search(_path, match, matchName);
+        return match.str(0);
     }
 
+    virtual std::string relativePath()
+    {
+        return _path;
+    }
+
+    virtual std::string traverseSearch(std::string name) {}
+
+    virtual Iterator *createIterator() = 0;
+
 private:
-    std::string _path;
     struct stat _st;
+    std::string _path;
 };
 
 #endif
