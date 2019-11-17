@@ -7,12 +7,12 @@
 #include <map>
 
 #include "node.h"
-#include "iterator.h"
+#include "node_iterator.h"
 
 class Folder : public Node
 {
 public:
-    class FolderIterator : public Iterator
+    class FolderIterator : public NodeIterator
     {
     public:
         FolderIterator(Folder *f) : _f(f) {}
@@ -53,18 +53,23 @@ public:
 public:
     Folder(std::string path) : Node(path)
     {
-        // if (nodeType != "folder")
-        //     throw(std::string("It is not Folder!"));
+        if (nodeType != "folder")
+            throw(std::string("It is not Folder!"));
     }
 
-    void addChild(Node *child)
+    void addChild(Node *child) override
     {
         _map[child->name()] = child;
     }
 
-    Iterator *createIterator()
+    NodeIterator *createIterator() override
     {
         return new FolderIterator(this);
+    }
+
+    void accept(FindVisitor *fv) override
+    {
+        fv->visitFolder(this);
     }
 
 private:

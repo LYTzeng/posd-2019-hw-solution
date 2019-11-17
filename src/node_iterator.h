@@ -1,9 +1,8 @@
-#ifndef ITERATOR_H
-#define ITERATOR_H
-
+#ifndef NODE_ITERATOR
+#define NODE_ITERATOR
 
 class Node;
-class Iterator
+class NodeIterator
 {
 public:
     virtual void first() = 0;

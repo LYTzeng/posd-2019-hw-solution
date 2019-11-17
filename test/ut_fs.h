@@ -6,6 +6,8 @@
 #include "../src/file.h"
 #include "../src/folder.h"
 #include "../src/utilities.h"
+#include "../src/link.h"
+#include "../src/find_visitor.h"
 
 class NodeTest : public testing::Test
 {
@@ -63,7 +65,7 @@ TEST_F(NodeTest, First)
 
 TEST_F(NodeTest, Second)
 {
-    Iterator *it = test_folder->createIterator();
+    NodeIterator *it = test_folder->createIterator();
     ASSERT_EQ(4096, test_folder->size());
     it->first();
     ASSERT_EQ(14, it->currentItem()->size());
@@ -101,7 +103,7 @@ TEST_F(NodeTest, InfoByteFunctionOnFolder)
 
 TEST_F(NodeTest, IteratorFromFolder)
 {
-    Iterator *it = hw->createIterator();
+    NodeIterator *it = hw->createIterator();
     it->first(); // Initialize
     ASSERT_EQ(a_out, it->currentItem());
     it->next();
@@ -114,13 +116,13 @@ TEST_F(NodeTest, IteratorFromFolder)
 
 TEST_F(NodeTest, IteratorFromFile)
 {
-    Iterator *it = hello_txt->createIterator();
+    NodeIterator *it = hello_txt->createIterator();
     ASSERT_TRUE(it->isDone());
 }
 
 TEST_F(NodeTest, FolderIteratorException)
 {
-    Iterator *it = test_folder->createIterator();
+    NodeIterator *it = test_folder->createIterator();
     it->first();
     it->next();
     it->next();
@@ -150,7 +152,7 @@ TEST_F(NodeTest, FolderIteratorException)
 
 TEST_F(NodeTest, FileCallIteratorMethodException)
 {
-    Iterator *it;
+    NodeIterator *it;
     it = hello_txt->createIterator();
 
     try
@@ -223,5 +225,50 @@ TEST_F(NodeTest, FolderFindFolder)
 {
     ASSERT_EQ("./hw", utilities->findNode(test_folder, "hw"));
 }
+
+/*
+██╗  ██╗██╗    ██╗     ██████╗ 
+██║  ██║██║    ██║    ██╔════╝ 
+███████║██║ █╗ ██║    ███████╗ 
+██╔══██║██║███╗██║    ██╔═══██╗
+██║  ██║╚███╔███╔╝    ╚██████╔╝
+╚═╝  ╚═╝ ╚══╝╚══╝      ╚═════╝ 
+*/
+
+TEST_F(NodeTest, NodeTypeError)
+{
+    ASSERT_ANY_THROW(new File("./123"));               //If the node doesn't exist, you should throw string "Node is not exist!"
+    ASSERT_ANY_THROW(new File("./test/test_folder"));  //If the File doesn't exist, you should throw string "It is not File!"
+    ASSERT_ANY_THROW(new Folder("./test/test_folder/hf.txt")); //If the Folder doesn't exist, you should throw string "It is not Folder!"
+    ASSERT_ANY_THROW(new Link("./test/test_folder", a_out));    //If the Link doesn't exist, you should throw string "It is not Link!"
+}
+
+TEST_F(NodeTest, Link)
+{
+    Link* ln = new Link("./test/test_folder/symlink_a", a_out);
+    Node* sym_a_out = ln->getSource();
+    ASSERT_EQ(a_out, sym_a_out);
+}
+
+TEST_F(NodeTest, Node_getPath)
+{
+    ASSERT_EQ("test/test_folder/hw", hw->getPath());
+    ASSERT_EQ("test/test_folder/hw/a.out", a_out->getPath());
+}
+
+TEST_F(NodeTest, FindVisitor_findResult)
+{
+    FindVisitor* fv = new FindVisitor("hello.txt");
+    hello_txt->accept(fv);
+    ASSERT_EQ("hello.txt", fv->findResult());
+    test_folder->accept(fv);
+    ASSERT_EQ("./hello.txt\n./hw/hello.txt", fv->findResult());
+    hw->accept(fv);
+    ASSERT_EQ("./hello.txt", fv->findResult());
+}
+
+//TODO: Test renameNode()
+
+//TODO: Test renameNode() with UpdatePathVisitor()
 
 #endif

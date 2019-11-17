@@ -3,9 +3,9 @@
 
 #include <string>
 
-#include "iterator.h"
+#include "node_iterator.h"
 
-class NullIterator : public Iterator
+class NullIterator : public NodeIterator
 {
 public:
     void first() override

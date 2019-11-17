@@ -5,7 +5,7 @@
 
 #include "node.h"
 #include "folder.h"
-#include "iterator.h"
+#include "node_iterator.h"
 
 //pratice here
 int infoByte(Node *node)
@@ -14,7 +14,7 @@ int infoByte(Node *node)
     Folder *folder = dynamic_cast<Folder *>(node); // down cast
     if (folder != nullptr)
     { //it's a folder
-        Iterator *it = folder->createIterator();
+        NodeIterator *it = folder->createIterator();
         for (it->first(); !it->isDone(); it->next())
         {
             total += it->currentItem()->size();
@@ -44,7 +44,7 @@ public:
 
         std::string nodeList;
         std::set<std::string> sortedNodes;
-        Iterator *it = folder->createIterator();
+        NodeIterator *it = folder->createIterator();
         it->first();
 
         for (int childNum = 0; childNum < it->size(); ++childNum)
@@ -100,7 +100,7 @@ public:
         for (std::string element : searchSet)
         {
             std::string parsed;
-            std::string pathString = node->relativePath();
+            std::string pathString = node->getPath();
             element.erase(0, pathString.length());
             if (element != "")
             {
@@ -120,10 +120,10 @@ public:
         // if the folder path is the result itself
         if (node->name() == name)
         {
-            traverseResult.append(node->relativePath());
+            traverseResult.append(node->getPath());
             traverseResult.append("\n");
         }
-        Iterator *it = node->createIterator();
+        NodeIterator *it = node->createIterator();
         it->first();
         for (int childNum = 0; childNum < it->size(); childNum++)
         {
@@ -131,7 +131,7 @@ public:
             // file name match the search string
             if (currentNode->nodeType == "file" && currentNode->name() == name)
             {
-                traverseResult.append(currentNode->relativePath());
+                traverseResult.append(currentNode->getPath());
                 traverseResult.append("\n");
             }
             // search for nodes under folder
