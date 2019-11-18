@@ -55,8 +55,6 @@ public:
 
     std::string getPath()
     {
-        // Getter!
-        // return node path
         return _path;
     }
 
@@ -66,17 +64,11 @@ public:
 
     void renameNode(std::string new_name)
     {
-        /* You should update
-        1. The physical node name.
-        2. The node name in your own file system
-        */
         std::string newPath;
         newPath.assign(_path.begin(), _path.begin() + _path.length() - name().length());
         newPath.insert(newPath.length(), new_name);
-        char *char_newPath = new char[newPath.length() + 1];
-        strcpy(char_newPath, newPath.c_str());
-        char *char_path = new char[_path.length() + 1];
-        strcpy(char_path, _path.c_str());
+        char *char_newPath = &newPath[0];
+        char *char_path = &_path[0];
         int returnCode = rename(char_path, char_newPath);
         if (returnCode != 0)
             perror("Error renaming file");
