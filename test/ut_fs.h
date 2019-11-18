@@ -15,14 +15,14 @@ class NodeTest : public testing::Test
 protected:
     void SetUp() override
     {
-        hw = new Folder("test/test_folder/hw");
-        a_out = new File("test/test_folder/hw/a.out");
-        hw1_cpp = new File("test/test_folder/hw/hw1.cpp");
-        hello_txt = new File("test/test_folder/hello.txt");
-        hf_txt = new File("test/test_folder/hf.txt");
-        test_folder = new Folder("test/test_folder");
-        hw_hello_txt = new File("test/test_folder/hw/hello.txt");
-        empty = new Folder("test/test_folder/empty");
+        hw = new Folder("./test/test_folder/hw");
+        a_out = new File("./test/test_folder/hw/a.out");
+        hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
+        hello_txt = new File("./test/test_folder/hello.txt");
+        hf_txt = new File("./test/test_folder/hf.txt");
+        test_folder = new Folder("./test/test_folder");
+        hw_hello_txt = new File("./test/test_folder/hw/hello.txt");
+        empty = new Folder("./test/test_folder/empty");
         hw->addChild(a_out);
         hw->addChild(hw1_cpp);
         hw->addChild(hw_hello_txt);
@@ -60,7 +60,7 @@ protected:
 TEST(StatApi, GetSize)
 {
     struct stat st;
-    ASSERT_EQ(0, stat("test/test_folder/hello.txt", &st));
+    ASSERT_EQ(0, stat("./test/test_folder/hello.txt", &st));
     int size = st.st_size;
     ASSERT_EQ(14, size);
 }
@@ -210,8 +210,8 @@ TEST_F(NodeTest, Link)
 
 TEST_F(NodeTest, Node_getPath)
 {
-    ASSERT_EQ("test/test_folder/hw", hw->getPath());
-    ASSERT_EQ("test/test_folder/hw/a.out", a_out->getPath());
+    ASSERT_EQ("./test/test_folder/hw", hw->getPath());
+    ASSERT_EQ("./test/test_folder/hw/a.out", a_out->getPath());
 }
 
 TEST_F(NodeTest, FindVisitor_findResult)
@@ -231,13 +231,13 @@ TEST_F(NodeTest, Node_RenameNode)
     UpdatePathVisitor *upv = new UpdatePathVisitor();
     hw->accept(upv);
     ASSERT_EQ("homework6", hw->name());
-    ASSERT_EQ("test/test_folder/homework6", hw->getPath());
+    ASSERT_EQ("./test/test_folder/homework6", hw->getPath());
     ASSERT_EQ("a.out", a_out->name());
-    ASSERT_EQ("test/test_folder/homework6/a.out", a_out->getPath());
-    ASSERT_EQ("test/test_folder/homework6/hello.txt", hw_hello_txt->getPath());
-    ASSERT_EQ("test/test_folder/homework6/hw1.cpp", hw1_cpp->getPath());
+    ASSERT_EQ("./test/test_folder/homework6/a.out", a_out->getPath());
+    ASSERT_EQ("./test/test_folder/homework6/hello.txt", hw_hello_txt->getPath());
+    ASSERT_EQ("./test/test_folder/homework6/hw1.cpp", hw1_cpp->getPath());
     struct stat _st;
-    if (lstat("test/test_folder/homework6", &_st) != 0)
+    if (lstat("./test/test_folder/homework6", &_st) != 0)
         FAIL(); // Check the physical node name!
 }
 
