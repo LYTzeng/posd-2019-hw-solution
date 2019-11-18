@@ -14,7 +14,7 @@ all: clean reset $(BIN)/ut_all
 
 $(BIN)/ut_all: $(TEST)/ut_main.cpp $(TEST)/ut_fs.h $(DynamicLIB) $(StaticLIB)
 	g++ $(CFLAGS) $(Wfatal) -o $@ $< $(StaticLIB) $(LIB)
-	$(BIN)/ut_all
+	$(BIN)/ut_all --gtest_catch_exceptions=1
 
 obj/find_visitor.o: $(SRC)/find_visitor.cpp $(SRC)/find_visitor.h $(SRC)/visitor.h
 	g++ $(CFLAGS) $(Wfatal) -c $< -o $@
