@@ -25,6 +25,11 @@ public:
     {
         fv->visitFile(this);
     }
+
+    void accept(UpdatePathVisitor *upv) override
+    {
+        upv->visitFile(this);
+    }    
 };
 
 #endif

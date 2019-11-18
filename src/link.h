@@ -46,6 +46,10 @@ public:
         return new NullIterator();
     }
 
+    void accept(UpdatePathVisitor *upv) override
+    {
+        upv->visitLink(this);
+    }
 private:
     Node *_node;
     char *_symlinkPath;

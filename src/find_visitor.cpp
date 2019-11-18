@@ -1,4 +1,3 @@
-//FIXME: Make sure FindVisitor inheriates Visitor class.
 #include <set>
 #include "find_visitor.h"
 #include "folder.h"

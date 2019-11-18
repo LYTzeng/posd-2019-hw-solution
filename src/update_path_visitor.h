@@ -1,10 +1,15 @@
-//TODO: UpdatePathVisitor
+#ifndef UPDATE_PATH_VISITOR
+#define UPDATE_PATH_VISITOR
 
-// class UpdatePathVisitor
-// {
-// public:
-//     UpdatePathVisitor();
-//     void visitFolder(Folder *folder);
-//     void visitFile(File *file);
-//     void visitLink(Link *link);
-// };
+#include "visitor.h"
+
+class UpdatePathVisitor : public Visitor
+{
+public:
+    UpdatePathVisitor();
+    void visitFolder(Folder *folder);
+    void visitFile(File *file);
+    void visitLink(Link *link);
+};
+
+#endif

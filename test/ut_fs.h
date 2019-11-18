@@ -8,6 +8,7 @@
 #include "../src/utilities.h"
 #include "../src/link.h"
 #include "../src/find_visitor.h"
+#include "../src/update_path_visitor.h"
 
 class NodeTest : public testing::Test
 {
@@ -237,16 +238,16 @@ TEST_F(NodeTest, FolderFindFolder)
 
 TEST_F(NodeTest, NodeTypeError)
 {
-    ASSERT_ANY_THROW(new File("./123"));               //If the node doesn't exist, you should throw string "Node is not exist!"
-    ASSERT_ANY_THROW(new File("./test/test_folder"));  //If the File doesn't exist, you should throw string "It is not File!"
+    ASSERT_ANY_THROW(new File("./123"));                       //If the node doesn't exist, you should throw string "Node is not exist!"
+    ASSERT_ANY_THROW(new File("./test/test_folder"));          //If the File doesn't exist, you should throw string "It is not File!"
     ASSERT_ANY_THROW(new Folder("./test/test_folder/hf.txt")); //If the Folder doesn't exist, you should throw string "It is not Folder!"
-    ASSERT_ANY_THROW(new Link("./test/test_folder", a_out));    //If the Link doesn't exist, you should throw string "It is not Link!"
+    ASSERT_ANY_THROW(new Link("./test/test_folder", a_out));   //If the Link doesn't exist, you should throw string "It is not Link!"
 }
 
 TEST_F(NodeTest, Link)
 {
-    Link* ln = new Link("./test/test_folder/symlink_a", a_out);
-    Node* sym_a_out = ln->getSource();
+    Link *ln = new Link("./test/test_folder/symlink_a", a_out);
+    Node *sym_a_out = ln->getSource();
     ASSERT_EQ(a_out, sym_a_out);
 }
 
@@ -258,7 +259,7 @@ TEST_F(NodeTest, Node_getPath)
 
 TEST_F(NodeTest, FindVisitor_findResult)
 {
-    FindVisitor* fv = new FindVisitor("hello.txt");
+    FindVisitor *fv = new FindVisitor("hello.txt");
     hello_txt->accept(fv);
     ASSERT_EQ("hello.txt", fv->findResult());
     test_folder->accept(fv);
@@ -267,8 +268,20 @@ TEST_F(NodeTest, FindVisitor_findResult)
     ASSERT_EQ("./hello.txt", fv->findResult());
 }
 
-//TODO: Test renameNode()
-
-//TODO: Test renameNode() with UpdatePathVisitor()
+TEST_F(NodeTest, Node_RenameNode)
+{
+    hw->renameNode("homework6");
+    UpdatePathVisitor *upv = new UpdatePathVisitor();
+    hw->accept(upv);
+    ASSERT_EQ("homework6", hw->name());
+    ASSERT_EQ("test/test_folder/homework6", hw->getPath());
+    ASSERT_EQ("a.out", a_out->name());
+    ASSERT_EQ("test/test_folder/homework6/a.out", a_out->getPath());
+    ASSERT_EQ("test/test_folder/homework6/hello.txt", hw_hello_txt->getPath());
+    ASSERT_EQ("test/test_folder/homework6/hw1.cpp", hw1_cpp->getPath());
+    struct stat _st;
+    if (lstat("test/test_folder/homework6", &_st) != 0)
+        FAIL(); // Check the physical node name!
+}
 
 #endif

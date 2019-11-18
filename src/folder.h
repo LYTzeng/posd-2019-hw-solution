@@ -72,6 +72,11 @@ public:
         fv->visitFolder(this);
     }
 
+    void accept(UpdatePathVisitor *upv) override
+    {
+        upv->visitFolder(this);
+    }
+
 private:
     std::map<std::string, Node *> _map;
 };

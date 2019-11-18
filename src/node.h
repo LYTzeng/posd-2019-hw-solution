@@ -4,8 +4,10 @@
 #include <string>
 #include <sys/stat.h>
 #include <regex>
+#include <stdio.h>
 #include "node_iterator.h"
 #include "find_visitor.h"
+#include "update_path_visitor.h"
 
 class Node
 {
@@ -58,16 +60,36 @@ public:
         return _path;
     }
 
-    virtual void accept(FindVisitor* fv) = 0;
+    virtual void accept(FindVisitor *fv) = 0;
 
-    // void renameNode(std::string new_name)
-    // {
-    //     //TODO: Implement renameNode() for Node Class.
-    //     /* You should update
-    //     1. The physical node name.
-    //     2. The node name in your own file system
-    //     */
-    // }
+    virtual void accept(UpdatePathVisitor *upv) = 0;
+
+    void renameNode(std::string new_name)
+    {
+        /* You should update
+        1. The physical node name.
+        2. The node name in your own file system
+        */
+        std::string newPath;
+        newPath.assign(_path.begin(), _path.begin() + _path.length() - name().length());
+        newPath.insert(newPath.length(), new_name);
+        char *char_newPath = new char[newPath.length()];
+        strcpy(char_newPath, newPath.c_str());
+        char *char_path = new char[_path.length()];
+        strcpy(char_path, _path.c_str());
+        int returnCode = rename(char_path, char_newPath);
+        if (returnCode != 0)
+            perror("Error renaming file");
+        else
+            _path = newPath;
+    }
+
+    void moveToNewPath(std::string newDir)
+    {
+        std::string currentName = name();
+        _path.assign(newDir);
+        _path.append(currentName);
+    }
 
 private:
     struct stat _st;
