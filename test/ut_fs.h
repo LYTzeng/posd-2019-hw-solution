@@ -223,6 +223,11 @@ TEST_F(NodeTest, FindVisitor_findResult)
 
 TEST_F(NodeTest, Node_RenameNode)
 {
+    Folder* hw2 = new Folder("./test/test_folder/hw/hw2");
+    File* shitty_file = new File("./test/test_folder/hw/hw2/shitty.file");
+    hw2->addChild(shitty_file);
+    hw->addChild(hw2);
+    // setup
     hw->renameNode("homework6");
     UpdatePathVisitor *upv = new UpdatePathVisitor();
     hw->accept(upv);
@@ -235,6 +240,8 @@ TEST_F(NodeTest, Node_RenameNode)
     struct stat _st;
     if (lstat("./test/test_folder/homework6", &_st) != 0)
         FAIL(); // Check the physical node name!
+    ASSERT_EQ("./test/test_folder/homework6/hw2", hw2->getPath());
+    ASSERT_EQ("./test/test_folder/homework6/hw2/shitty.file", shitty_file->getPath());
 }
 
 #endif
