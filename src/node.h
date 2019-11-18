@@ -15,8 +15,10 @@ public:
     Node(std::string path) : _path(path)
     {
         struct stat st;
+        std::string s("Node is not exist!");
+        s.append(path);
         if (lstat(_path.c_str(), &st) != 0)
-            throw(std::string("Node is not exist!"));
+            throw(s);
         _size = st.st_size;
     }
     virtual ~Node() {}
