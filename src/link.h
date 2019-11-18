@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <unistd.h>
+#include <regex>
 #include "node.h"
 #include "null_iterator.h"
 
@@ -49,6 +50,16 @@ public:
     void accept(UpdatePathVisitor *upv) override
     {
         upv->visitLink(this);
+    }
+
+    std::string name() override
+    {
+        return _node->name();
+    }
+
+    std::string getPath() override
+    {
+        return _node->getPath();
     }
 
 private:

@@ -43,7 +43,7 @@ public:
         throw(std::string("Invalid add!"));
     }
 
-    std::string name()
+    virtual std::string name()
     {
         std::smatch match;
         std::regex matchName("([^\\/]+$)");
@@ -53,7 +53,7 @@ public:
 
     virtual Iterator *createIterator() = 0;
 
-    std::string getPath()
+    virtual std::string getPath()
     {
         // Getter!
         // return node path
