@@ -15,6 +15,7 @@ class NodeTest : public testing::Test
 protected:
     void SetUp() override
     {
+        try{
         hw = new Folder("./test/test_folder/hw");
         a_out = new File("./test/test_folder/hw/a.out");
         hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
@@ -29,6 +30,11 @@ protected:
         test_folder->addChild(hello_txt);
         test_folder->addChild(hf_txt);
         test_folder->addChild(hw);
+        }
+        catch(std::string e)
+        {
+            ASSERT_EQ("qqqq", e);
+        }
     }
     void TearDown() override
     {
