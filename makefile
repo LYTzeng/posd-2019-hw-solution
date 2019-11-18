@@ -14,6 +14,7 @@ all: clean reset $(BIN)/ut_all
 
 $(BIN)/ut_all: $(TEST)/ut_main.cpp $(TEST)/ut_fs.h $(DynamicLIB) $(StaticLIB)
 	g++ $(CFLAGS) $(Wfatal) -o $@ $< $(StaticLIB) $(LIB)
+	ls -la
 	$@ --gtest_catch_exceptions=1
 	rm -rf test/test_folder
 	cp -r test/test_folder_backup test/test_folder
