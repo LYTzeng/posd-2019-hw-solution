@@ -15,9 +15,9 @@ class NodeTest : public testing::Test
 protected:
     void SetUp() override
     {
+            hw = new Folder("./test/test_folder/hw");
         try
         {
-            hw = new Folder("./test/test_folder/hw");
             a_out = new File("./test/test_folder/hw/a.out");
             hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
             hello_txt = new File("./test/test_folder/hello.txt");
