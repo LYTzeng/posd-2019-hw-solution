@@ -50,7 +50,7 @@ void FindVisitor::visitFile(File *file)
 
 void FindVisitor::visitLink(Link *link)
 {
-    if (link->targetName() == _name)
+    if (link->name() == _name)
         _searchResult.assign(_name.begin(), _name.end());
     else
         _searchResult.assign("\0", 0);
@@ -75,8 +75,8 @@ std::string FindVisitor::traverseSearch(Node *node, std::string name) // This fu
     for (int childNum = 0; childNum < it->size(); childNum++)
     {
         Node *currentNode = it->currentItem();
-        // file name match the search string
-        if (currentNode->nodeType == "file" && currentNode->name() == name)
+        // file or link name match the search string
+        if ((currentNode->nodeType == "file" || currentNode->nodeType == "symlink") && currentNode->name() == name)
         {
             traverseResult.append(currentNode->getPath());
             traverseResult.append("\n");

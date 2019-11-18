@@ -194,6 +194,16 @@ TEST_F(NodeTest, Link)
     ASSERT_EQ(a_out, sym_a_out);
 }
 
+TEST_F(NodeTest, FindLink)
+{
+    FindVisitor *fv = new FindVisitor("symlink_a");
+    Link *ln = new Link("./test/test_folder/symlink_a", a_out);
+    ASSERT_EQ("symlink_a", ln->name());
+    test_folder->addChild(ln);
+    test_folder->accept(fv);
+    ASSERT_EQ("./symlink_a", fv->findResult());
+}
+
 TEST_F(NodeTest, Node_getPath)
 {
     ASSERT_EQ("./test/test_folder/hw", hw->getPath());
