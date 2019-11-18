@@ -16,7 +16,7 @@ public:
             throw(std::string("It is not File!"));
     }
 
-    NodeIterator *createIterator() override
+    Iterator *createIterator() override
     {
         return new NullIterator();
     }

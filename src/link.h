@@ -41,7 +41,7 @@ public:
         return _node;
     }
 
-    NodeIterator *createIterator() override
+    Iterator *createIterator() override
     {
         return new NullIterator();
     }

@@ -5,8 +5,9 @@
 
 #include "../src/file.h"
 #include "../src/folder.h"
-#include "../src/utilities.h"
 #include "../src/link.h"
+#include "../src/utilities.h"
+#include "../src/iterator.h"
 #include "../src/find_visitor.h"
 #include "../src/update_path_visitor.h"
 
@@ -66,7 +67,7 @@ TEST_F(NodeTest, First)
 
 TEST_F(NodeTest, Second)
 {
-    NodeIterator *it = test_folder->createIterator();
+    Iterator *it = test_folder->createIterator();
     ASSERT_EQ(4096, test_folder->size());
     it->first();
     ASSERT_EQ(14, it->currentItem()->size());
@@ -104,7 +105,7 @@ TEST_F(NodeTest, InfoByteFunctionOnFolder)
 
 TEST_F(NodeTest, IteratorFromFolder)
 {
-    NodeIterator *it = hw->createIterator();
+    Iterator *it = hw->createIterator();
     it->first(); // Initialize
     ASSERT_EQ(a_out, it->currentItem());
     it->next();
@@ -117,13 +118,13 @@ TEST_F(NodeTest, IteratorFromFolder)
 
 TEST_F(NodeTest, IteratorFromFile)
 {
-    NodeIterator *it = hello_txt->createIterator();
+    Iterator *it = hello_txt->createIterator();
     ASSERT_TRUE(it->isDone());
 }
 
 TEST_F(NodeTest, FolderIteratorException)
 {
-    NodeIterator *it = test_folder->createIterator();
+    Iterator *it = test_folder->createIterator();
     it->first();
     it->next();
     it->next();
@@ -153,7 +154,7 @@ TEST_F(NodeTest, FolderIteratorException)
 
 TEST_F(NodeTest, FileCallIteratorMethodException)
 {
-    NodeIterator *it;
+    Iterator *it;
     it = hello_txt->createIterator();
 
     try

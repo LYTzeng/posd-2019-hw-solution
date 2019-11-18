@@ -5,7 +5,7 @@
 
 #include "node.h"
 #include "folder.h"
-#include "node_iterator.h"
+#include "iterator.h"
 
 //pratice here
 int infoByte(Node *node)
@@ -14,7 +14,7 @@ int infoByte(Node *node)
     Folder *folder = dynamic_cast<Folder *>(node); // down cast
     if (folder != nullptr)
     { //it's a folder
-        NodeIterator *it = folder->createIterator();
+        Iterator *it = folder->createIterator();
         for (it->first(); !it->isDone(); it->next())
         {
             total += it->currentItem()->size();
@@ -44,7 +44,7 @@ public:
 
         std::string nodeList;
         std::set<std::string> sortedNodes;
-        NodeIterator *it = folder->createIterator();
+        Iterator *it = folder->createIterator();
         it->first();
 
         for (int childNum = 0; childNum < it->size(); ++childNum)
@@ -123,7 +123,7 @@ public:
             traverseResult.append(node->getPath());
             traverseResult.append("\n");
         }
-        NodeIterator *it = node->createIterator();
+        Iterator *it = node->createIterator();
         it->first();
         for (int childNum = 0; childNum < it->size(); childNum++)
         {

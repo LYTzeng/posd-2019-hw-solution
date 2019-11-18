@@ -7,12 +7,12 @@
 #include <map>
 
 #include "node.h"
-#include "node_iterator.h"
+#include "iterator.h"
 
 class Folder : public Node
 {
 public:
-    class FolderIterator : public NodeIterator
+    class FolderIterator : public Iterator
     {
     public:
         FolderIterator(Folder *f) : _f(f) {}
@@ -62,7 +62,7 @@ public:
         _map[child->name()] = child;
     }
 
-    NodeIterator *createIterator() override
+    Iterator *createIterator() override
     {
         return new FolderIterator(this);
     }

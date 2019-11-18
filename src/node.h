@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <regex>
 #include <stdio.h>
-#include "node_iterator.h"
+#include "iterator.h"
 #include "find_visitor.h"
 #include "update_path_visitor.h"
 
@@ -51,7 +51,7 @@ public:
         return match.str(0);
     }
 
-    virtual NodeIterator *createIterator() = 0;
+    virtual Iterator *createIterator() = 0;
 
     std::string getPath()
     {
