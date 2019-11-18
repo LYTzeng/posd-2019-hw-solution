@@ -50,7 +50,7 @@ void FindVisitor::visitFile(File *file)
 
 void FindVisitor::visitLink(Link *link)
 {
-    if (link->name() == _name)
+    if (link->targetName() == _name)
         _searchResult.assign(_name.begin(), _name.end());
     else
         _searchResult.assign("\0", 0);

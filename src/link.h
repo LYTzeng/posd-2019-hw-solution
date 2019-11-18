@@ -52,12 +52,12 @@ public:
         upv->visitLink(this);
     }
 
-    std::string name() override
+    std::string targetName()
     {
         return _node->name();
     }
 
-    std::string getPath() override
+    std::string getTargetPath()
     {
         return _node->getPath();
     }
