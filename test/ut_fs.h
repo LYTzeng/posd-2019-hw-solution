@@ -242,6 +242,10 @@ TEST_F(NodeTest, Node_RenameNode)
         FAIL(); // Check the physical node name!
     ASSERT_EQ("./test/test_folder/homework6/hw2", hw2->getPath());
     ASSERT_EQ("./test/test_folder/homework6/hw2/shitty.file", shitty_file->getPath());
+    // reuse update_path_visitor
+    a_out->renameNode("b.out");
+    a_out->accept(upv);
+    ASSERT_EQ("b.out", a_out->name());
 }
 
 #endif
