@@ -73,9 +73,9 @@ public:
         std::string newPath;
         newPath.assign(_path.begin(), _path.begin() + _path.length() - name().length());
         newPath.insert(newPath.length(), new_name);
-        char *char_newPath = new char[newPath.length()];
+        char *char_newPath = new char[newPath.length() + 1];
         strcpy(char_newPath, newPath.c_str());
-        char *char_path = new char[_path.length()];
+        char *char_path = new char[_path.length() + 1];
         strcpy(char_path, _path.c_str());
         int returnCode = rename(char_path, char_newPath);
         if (returnCode != 0)
