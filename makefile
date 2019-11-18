@@ -17,7 +17,6 @@ $(BIN)/ut_all: $(TEST)/ut_main.cpp $(TEST)/ut_fs.h $(DynamicLIB) $(StaticLIB)
 	$@ --gtest_catch_exceptions=1
 	rm -rf test/test_folder
 	cp -r test/test_folder_backup test/test_folder
-	code .
 
 obj/find_visitor.o: $(SRC)/find_visitor.cpp $(SRC)/find_visitor.h $(SRC)/visitor.h
 	g++ $(CFLAGS) $(Wfatal) -c $< -o $@
