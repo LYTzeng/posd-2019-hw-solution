@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <vector>
 #include <map>
+#include <sys/stat.h>
 
 #include "node.h"
 #include "iterator.h"
@@ -53,8 +54,12 @@ public:
 public:
     Folder(std::string path) : Node(path)
     {
-        if (nodeType != "folder")
+        struct stat st;
+        stat(path.c_str(), &st);
+        if (!S_ISDIR(st.st_mode))
             throw(std::string("It is not Folder!"));
+        else
+            nodeType = "folder";
     }
 
     void addChild(Node *child) override

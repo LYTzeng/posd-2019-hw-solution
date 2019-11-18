@@ -196,7 +196,7 @@ TEST_F(NodeTest, FileCallIteratorMethodException)
 TEST_F(NodeTest, NodeTypeError)
 {
     ASSERT_ANY_THROW(new File("./123"));                       //If the node doesn't exist, you should throw string "Node is not exist!"
-    ASSERT_ANY_THROW(new File("./test/test_folder"));          //If the File doesn't exist, you should throw string "It is not File!"
+    ASSERT_ANY_THROW(new File("./test/not_test_folder"));          //If the File doesn't exist, you should throw string "It is not File!"
     ASSERT_ANY_THROW(new Folder("./test/test_folder/hf.txt")); //If the Folder doesn't exist, you should throw string "It is not Folder!"
     ASSERT_ANY_THROW(new Link("./test/test_folder", a_out));   //If the Link doesn't exist, you should throw string "It is not Link!"
 }
