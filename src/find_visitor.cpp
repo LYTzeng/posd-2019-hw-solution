@@ -70,7 +70,7 @@ std::string FindVisitor::traverseSearch(Node *node, std::string name) // This fu
         traverseResult.append(node->getPath());
         traverseResult.append("\n");
     }
-    NodeIterator *it = node->createIterator();
+    Iterator *it = node->createIterator();
     it->first();
     for (int childNum = 0; childNum < it->size(); childNum++)
     {

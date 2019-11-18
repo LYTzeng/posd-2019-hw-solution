@@ -6,7 +6,6 @@
 #include "../src/file.h"
 #include "../src/folder.h"
 #include "../src/link.h"
-#include "../src/utilities.h"
 #include "../src/iterator.h"
 #include "../src/find_visitor.h"
 #include "../src/update_path_visitor.h"
@@ -38,7 +37,6 @@ protected:
         delete hw1_cpp;
         delete hello_txt;
         delete test_folder;
-        delete utilities;
         delete hw_hello_txt;
     }
     Folder *hw;
@@ -47,11 +45,18 @@ protected:
     File *hello_txt;
     File *hf_txt;
     Node *test_folder;
-    Utilities *utilities;
     File *hw_hello_txt;
     Folder *empty;
 };
-
+/***
+ *    ██╗  ██╗██╗    ██╗    ███████╗██╗██╗   ██╗███████╗
+ *    ██║  ██║██║    ██║    ██╔════╝██║██║   ██║██╔════╝
+ *    ███████║██║ █╗ ██║    █████╗  ██║██║   ██║█████╗  
+ *    ██╔══██║██║███╗██║    ██╔══╝  ██║╚██╗ ██╔╝██╔══╝  
+ *    ██║  ██║╚███╔███╔╝    ██║     ██║ ╚████╔╝ ███████╗
+ *    ╚═╝  ╚═╝ ╚══╝╚══╝     ╚═╝     ╚═╝  ╚═══╝  ╚══════╝
+ *                                                      
+ */
 TEST(StatApi, GetSize)
 {
     struct stat st;
@@ -91,16 +96,6 @@ TEST_F(NodeTest, CatchException)
     {
         ASSERT_EQ("Invalid add!", s);
     }
-}
-
-TEST_F(NodeTest, InfoByteFunctionOnFile)
-{
-    ASSERT_EQ(14, infoByte(hello_txt));
-}
-
-TEST_F(NodeTest, InfoByteFunctionOnFolder)
-{
-    ASSERT_EQ(19027, infoByte(hw));
 }
 
 TEST_F(NodeTest, IteratorFromFolder)
@@ -189,54 +184,15 @@ TEST_F(NodeTest, FileCallIteratorMethodException)
         ASSERT_EQ("no child member", e);
     }
 }
-
-TEST_F(NodeTest, ListNode)
-{
-    ASSERT_EQ("hello.txt hf.txt hw", utilities->listNode(test_folder));
-}
-
-TEST_F(NodeTest, ListNodeOnFileException)
-{
-    try
-    {
-        utilities->listNode(a_out);
-        FAIL() << "Expected exceptional exception";
-    }
-    catch (std::string e)
-    {
-        ASSERT_EQ("Not a directory", e);
-    }
-}
-
-TEST_F(NodeTest, FileFindFileSelf)
-{
-    ASSERT_EQ("hello.txt", utilities->findNode(hello_txt, "hello.txt"));
-}
-
-TEST_F(NodeTest, FolderFindFolderSelf)
-{
-    ASSERT_EQ("", utilities->findNode(test_folder, "test_folder"));
-}
-
-TEST_F(NodeTest, FolderFindFileMultiple)
-{
-    ASSERT_EQ("./hello.txt\n./hw/hello.txt", utilities->findNode(test_folder, "hello.txt"));
-}
-
-TEST_F(NodeTest, FolderFindFolder)
-{
-    ASSERT_EQ("./hw", utilities->findNode(test_folder, "hw"));
-}
-
-/*
-██╗  ██╗██╗    ██╗     ██████╗ 
-██║  ██║██║    ██║    ██╔════╝ 
-███████║██║ █╗ ██║    ███████╗ 
-██╔══██║██║███╗██║    ██╔═══██╗
-██║  ██║╚███╔███╔╝    ╚██████╔╝
-╚═╝  ╚═╝ ╚══╝╚══╝      ╚═════╝ 
-*/
-
+/***
+ *    ██╗  ██╗██╗    ██╗    ███████╗██╗██╗  ██╗
+ *    ██║  ██║██║    ██║    ██╔════╝██║╚██╗██╔╝
+ *    ███████║██║ █╗ ██║    ███████╗██║ ╚███╔╝ 
+ *    ██╔══██║██║███╗██║    ╚════██║██║ ██╔██╗ 
+ *    ██║  ██║╚███╔███╔╝    ███████║██║██╔╝ ██╗
+ *    ╚═╝  ╚═╝ ╚══╝╚══╝     ╚══════╝╚═╝╚═╝  ╚═╝
+ *                                             
+ */
 TEST_F(NodeTest, NodeTypeError)
 {
     ASSERT_ANY_THROW(new File("./123"));                       //If the node doesn't exist, you should throw string "Node is not exist!"

@@ -7,7 +7,7 @@ TEST = test
 LIB = -lgtest -lpthread
 CFLAGS = -std=c++11
 Wfatal = -Wfatal-errors
-DynamicLIB = $(SRC)/node.h $(SRC)/file.h $(SRC)/folder.h $(SRC)/link.h $(SRC)/iterator.h $(SRC)/null_iterator.h
+DynamicLIB = $(SRC)/node.h $(SRC)/file.h $(SRC)/folder.h $(SRC)/link.h $(SRC)/null_iterator.h
 StaticLIB = $(OBJ)/find_visitor.o $(OBJ)/update_path_visitor.o
 
 all: clean reset $(BIN)/ut_all

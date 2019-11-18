@@ -1,5 +1,5 @@
 #include "update_path_visitor.h"
-#include "node_iterator.h"
+#include "iterator.h"
 #include "folder.h"
 #include "file.h"
 #include "link.h"
@@ -7,7 +7,7 @@
 UpdatePathVisitor::UpdatePathVisitor() { /* Do Nothing */ }
 void UpdatePathVisitor::visitFolder(Folder *folder)
 {
-    NodeIterator *it = folder->createIterator();
+    Iterator *it = folder->createIterator();
     it->first();
     for (int childNum = 0; childNum < it->size(); childNum++)
     {
