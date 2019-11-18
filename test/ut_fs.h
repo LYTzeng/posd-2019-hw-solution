@@ -15,23 +15,24 @@ class NodeTest : public testing::Test
 protected:
     void SetUp() override
     {
-        try{
-        hw = new Folder("./test/test_folder/hw");
-        a_out = new File("./test/test_folder/hw/a.out");
-        hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
-        hello_txt = new File("./test/test_folder/hello.txt");
-        hf_txt = new File("./test/test_folder/hf.txt");
-        test_folder = new Folder("./test/test_folder");
-        hw_hello_txt = new File("./test/test_folder/hw/hello.txt");
-        empty = new Folder("./test/test_folder/empty");
-        hw->addChild(a_out);
-        hw->addChild(hw1_cpp);
-        hw->addChild(hw_hello_txt);
-        test_folder->addChild(hello_txt);
-        test_folder->addChild(hf_txt);
-        test_folder->addChild(hw);
+        try
+        {
+            hw = new Folder("./test/test_folder/hw");
+            a_out = new File("./test/test_folder/hw/a.out");
+            hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
+            hello_txt = new File("./test/test_folder/hello.txt");
+            hf_txt = new File("./test/test_folder/hf.txt");
+            test_folder = new Folder("./test/test_folder");
+            hw_hello_txt = new File("./test/test_folder/hw/hello.txt");
+            empty = new Folder("./test/test_folder/empty");
+            hw->addChild(a_out);
+            hw->addChild(hw1_cpp);
+            hw->addChild(hw_hello_txt);
+            test_folder->addChild(hello_txt);
+            test_folder->addChild(hf_txt);
+            test_folder->addChild(hw);
         }
-        catch(std::string e)
+        catch (std::string e)
         {
             ASSERT_EQ("qqqq", e);
         }
@@ -202,7 +203,7 @@ TEST_F(NodeTest, FileCallIteratorMethodException)
 TEST_F(NodeTest, NodeTypeError)
 {
     ASSERT_ANY_THROW(new File("./123"));                       //If the node doesn't exist, you should throw string "Node is not exist!"
-    ASSERT_ANY_THROW(new File("./test/not_test_folder"));          //If the File doesn't exist, you should throw string "It is not File!"
+    ASSERT_ANY_THROW(new File("./test/not_test_folder"));      //If the File doesn't exist, you should throw string "It is not File!"
     ASSERT_ANY_THROW(new Folder("./test/test_folder/hf.txt")); //If the Folder doesn't exist, you should throw string "It is not Folder!"
     ASSERT_ANY_THROW(new Link("./test/test_folder", a_out));   //If the Link doesn't exist, you should throw string "It is not Link!"
 }
