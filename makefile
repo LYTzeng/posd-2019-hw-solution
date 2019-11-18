@@ -24,6 +24,10 @@ obj/update_path_visitor.o: $(SRC)/update_path_visitor.cpp $(SRC)/update_path_vis
 
 clean:
 	rm -f $(BIN)/*
+	rm -f $(OBJ)/*
+
+mkdir:
+	mkdir -p $(OBJ)
 	mkdir -p $(BIN)
 
 reset:
