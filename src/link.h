@@ -4,7 +4,6 @@
 #include <string>
 #include <memory>
 #include <unistd.h>
-#include <sys/stat.h>
 #include "node.h"
 #include "null_iterator.h"
 
@@ -13,12 +12,8 @@ class Link : public Node
 public:
     Link(std::string path, Node *node) : Node(path), _node(node)
     {
-        struct stat st;
-        lstat(path.c_str(), &st);
-        if (!S_ISLNK(st.st_mode))
+        if (nodeType != "symlink")
             throw(std::string("It is not Link!"));
-        else
-            nodeType = "symlink";
         // Change the target of the symlink to Node
         _symlinkPath = new char[getPath().length()];
         strcpy(_symlinkPath, getPath().c_str());

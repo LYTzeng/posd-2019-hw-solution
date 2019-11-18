@@ -14,12 +14,20 @@ class Node
 public:
     Node(std::string path) : _path(path)
     {
-        struct stat st;
-        std::string s("Node is not exist!");
-        s.append(path);
-        if (lstat(_path.c_str(), &st) != 0)
-            throw(s);
-        _size = st.st_size;
+        if (lstat(_path.c_str(), &_st) != 0)
+            throw(std::string("Node is not exist!"));
+        switch (_st.st_mode & S_IFMT)
+        {
+        case S_IFREG:
+            nodeType = "file";
+            break;
+        case S_IFDIR:
+            nodeType = "folder";
+            break;
+        case S_IFLNK:
+            nodeType = "symlink";
+            break;
+        }
     }
     virtual ~Node() {}
 
@@ -27,7 +35,7 @@ public:
 
     int size()
     {
-        return _size;
+        return _st.st_size;
     }
 
     virtual void addChild(Node *child)
@@ -84,8 +92,8 @@ public:
     }
 
 private:
+    struct stat _st;
     std::string _path;
-    int _size;
 };
 
 #endif

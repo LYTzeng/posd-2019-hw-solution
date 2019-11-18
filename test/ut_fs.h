@@ -15,27 +15,19 @@ class NodeTest : public testing::Test
 protected:
     void SetUp() override
     {
-        try
-        {
-            hw = new Folder("./test/test_folder/hw");
-            a_out = new File("./test/test_folder/hw/a.out");
-            hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
-            hello_txt = new File("./test/test_folder/hello.txt");
-            hf_txt = new File("./test/test_folder/hf.txt");
-            test_folder = new Folder("./test/test_folder");
-            hw_hello_txt = new File("./test/test_folder/hw/hello.txt");
-            empty = new Folder("./test/test_folder/empty");
-            hw->addChild(a_out);
-            hw->addChild(hw1_cpp);
-            hw->addChild(hw_hello_txt);
-            test_folder->addChild(hello_txt);
-            test_folder->addChild(hf_txt);
-            test_folder->addChild(hw);
-        }
-        catch (std::string e)
-        {
-            ASSERT_EQ("qqqq", e);
-        }
+        hw = new Folder("./test/test_folder/hw");
+        a_out = new File("./test/test_folder/hw/a.out");
+        hw1_cpp = new File("./test/test_folder/hw/hw1.cpp");
+        hello_txt = new File("./test/test_folder/hello.txt");
+        hf_txt = new File("./test/test_folder/hf.txt");
+        test_folder = new Folder("./test/test_folder");
+        hw_hello_txt = new File("./test/test_folder/hw/hello.txt");
+        hw->addChild(a_out);
+        hw->addChild(hw1_cpp);
+        hw->addChild(hw_hello_txt);
+        test_folder->addChild(hello_txt);
+        test_folder->addChild(hf_txt);
+        test_folder->addChild(hw);
     }
     void TearDown() override
     {
@@ -53,7 +45,6 @@ protected:
     File *hf_txt;
     Node *test_folder;
     File *hw_hello_txt;
-    Folder *empty;
 };
 /***
  *    ██╗  ██╗██╗    ██╗    ███████╗██╗██╗   ██╗███████╗
@@ -139,18 +130,6 @@ TEST_F(NodeTest, FolderIteratorException)
     catch (std::string e)
     {
         ASSERT_EQ("Moving past the end!", e);
-    }
-
-    try
-    {
-        it = empty->createIterator();
-        it->first();
-        it->currentItem();
-        FAIL() << "Expected exceptional exception";
-    }
-    catch (std::string e)
-    {
-        ASSERT_EQ("No current item!", e);
     }
 }
 

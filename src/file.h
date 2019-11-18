@@ -2,8 +2,6 @@
 #define FILE_H
 
 #include <string>
-#include <sys/stat.h>
-#include <sys/stat.h>
 
 #include "node.h"
 #include "null_iterator.h"
@@ -13,12 +11,8 @@ class File : public Node
 public:
     File(std::string path) : Node(path)
     {
-        struct stat st;
-        stat(path.c_str(), &st);
-        if (!S_ISREG(st.st_mode))
+        if (nodeType != "file")
             throw(std::string("It is not File!"));
-        else
-            nodeType = "file";
     }
 
     Iterator *createIterator() override
