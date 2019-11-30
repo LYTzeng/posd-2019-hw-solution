@@ -80,13 +80,18 @@ class Set : public Element
     void setOperator(char ope)
     {
         if (ope != '+' && ope != '-' && ope != '*' && ope != '/')
-            throw(std::string("Invalid operstor!"));
-        else
-            _operator = ope;
+            throw(std::string("Invalid operator!"));
+        
+        _operator = ope;
     }
     void accept(Visitor *fsv)
     {
         fsv->visitSet(this);
+    }
+
+    char getOpe() // getter
+    {
+        return _operator;
     }
 
   private:
