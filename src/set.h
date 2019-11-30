@@ -19,7 +19,7 @@ class Set : public Element
         }
         Element *currentItem()
         {
-            if (_s->_map.size() == 0 || (_current) == _s->_map.end())
+            if (_s->_map.size() == 0)
                 throw std::string("No current item!");
             return _current->second;
         }
