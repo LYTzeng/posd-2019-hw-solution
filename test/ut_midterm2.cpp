@@ -127,9 +127,9 @@ TEST_F(Test, FlattenedSetVisitor)
     ASSERT_EQ("{10,20,3,400}", fsv->getResult()->toString());
     int10->accept(fsv);
     ASSERT_EQ("10", fsv->getResult()->toString());
-    intSet1->add(new Set());
-    intSet1->accept(fsv);
-    ASSERT_EQ("{10,20,3,400}", fsv->getResult()->toString());
+    // intSet1->add(new Set());
+    // intSet1->accept(fsv);
+    // ASSERT_EQ("{10,20,3,400}", fsv->getResult()->toString());
 }
 
 TEST_F(Test, EvaluateVisitor)
@@ -157,12 +157,12 @@ TEST_F(Test, EvaluateVisitor)
     intSet3->add(intTemp1);
     intSet3->add(intTemp2);
     intSet3->setOperator('/'); // 99/0
-    // try{
-    //     intSet3->accept(ev);
-    //     FAIL() << "Expected exceptional exception";        
-    // }
-    // catch(std::string s)
-    // {
-    //     ASSERT_EQ("Divide by zero!", s);
-    // }
+    try{
+        intSet3->accept(ev);
+        FAIL() << "Expected exceptional exception";        
+    }
+    catch(std::string s)
+    { 
+        ASSERT_EQ("Divide by zero!", s);
+    }
 }

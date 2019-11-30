@@ -21,11 +21,12 @@ class Set : public Element
         {
             if (_s->_map.size() == 0)
                 throw std::string("No current item!");
-            return _current->second;
+            // return _current->second;
+            return *_current;
         }
         void next()
         {
-            if (_s->_map.size() == 0 || (_current++) == _s->_map.end())
+            if ((_current++) == _s->_map.end())
                 throw std::string("Moving past the end!");
         }
         bool isDone()
@@ -39,7 +40,8 @@ class Set : public Element
 
       private:
         Set *_s;
-        std::map<std::string, Element *>::iterator _current;
+        // std::map<std::string, Element *>::iterator _current;
+        std::vector<Element *>::iterator  _current;
     };
 
   public:
@@ -49,7 +51,8 @@ class Set : public Element
     }
     void add(Element *element)
     {
-        _map[element->toString()] = element;
+        // _map[element->toString()] = element;
+        _map.push_back(element);
     }
     int size()
     {
@@ -96,7 +99,8 @@ class Set : public Element
 
   private:
     char _operator;
-    std::map<std::string, Element *> _map;
+    // std::map<std::string, Element *> _map;
+    std::vector<Element*> _map;
 };
 
 #endif

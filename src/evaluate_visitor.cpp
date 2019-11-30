@@ -69,8 +69,8 @@ void EvaluateVisitor::visitSet(Set *s)
         EvaluateVisitor *childEV = new EvaluateVisitor();
         it->currentItem()->accept(childEV);
         double thisElement = childEV->getResult();
-        it->next();
         delete childEV;
+        it->next();
 
         for (int childNum = 1; childNum < it->size(); childNum++)
         {
