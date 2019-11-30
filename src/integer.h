@@ -31,7 +31,10 @@ class Integer : public Element
     {
         throw(std::string("Cannot set operator on it!"));
     }
-    void accept(Visitor *fsv) {}
+    void accept(Visitor *fsv) 
+    {
+        fsv->visitInteger(this);
+    }
 
   private:
     int _integer;

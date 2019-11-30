@@ -8,9 +8,7 @@
 class Element
 {
   public:
-    Element()
-    {
-    }
+    Element(){}
 
     virtual void add(Element *s) = 0;
 

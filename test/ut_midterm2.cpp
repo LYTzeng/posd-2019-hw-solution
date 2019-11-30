@@ -4,6 +4,8 @@
 #include "../src/integer.h"
 #include "../src/set.h"
 #include "../src/iterator.h"
+#include "../src/flattened_set_visitor.h"
+// #include "../src/evaluate_visitor.h"
 
 int main(int argc, char **argv)
 {
@@ -113,4 +115,16 @@ TEST_F(Test, Set)
     {
         ASSERT_EQ("Invalid operstor!", s);
     }
+}
+
+TEST_F(Test, FlattenedSetVisitor)
+{
+    FlattenedSetVisitor *fsv = new FlattenedSetVisitor();
+    intSet1->accept(fsv);
+    ASSERT_EQ("{10,20,3,400}", fsv->getResult()->toString());
+    int10->accept(fsv);
+    ASSERT_EQ("10", fsv->getResult()->toString());
+    intSet1->add(new Set());
+    intSet1->accept(fsv);
+    ASSERT_EQ("{10,20,3,400}", fsv->getResult()->toString());    
 }
