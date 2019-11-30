@@ -4,6 +4,9 @@
 #include "../src/integer.h"
 #include "../src/set.h"
 #include "../src/iterator.h"
+#include "../src/element.h"
+#include "../src/null_iterator.h"
+#include "../src/visitor.h"
 #include "../src/flattened_set_visitor.h"
 #include "../src/evaluate_visitor.h"
 
