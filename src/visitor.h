@@ -2,6 +2,7 @@
 #define VISITOR_H
 
 class Set;
+class Integer;
 class Visitor
 {
   public:

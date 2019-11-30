@@ -9,6 +9,7 @@ class Iterator
     virtual Element *currentItem() = 0;
     virtual void next() = 0;
     virtual bool isDone() = 0;
+    virtual int size() = 0;
 };
 
 #endif
