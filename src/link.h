@@ -19,7 +19,7 @@ public:
         // Change the target of the symlink to Node
         _symlinkPath = new char[getPath().length()];
         strcpy(_symlinkPath, getPath().c_str());
-        this->addLink(node);
+        // this->addLink(node);
     }
 
     void accept(FindVisitor *fv) override

@@ -32,4 +32,12 @@ TEST(FileSystemBuilder, file)
     ASSERT_EQ("test/test_folder/hw/a.out", fb->getRoot()->getPath());
 }
 
+TEST(FileSystemBuilder, link)
+{
+    FileSystemBuilder *fb = FileSystemBuilder::instance();
+    fb->build("test/test_folder/hello");
+    ASSERT_EQ("hello", fb->getRoot()->name());
+    ASSERT_EQ("test/test_folder/hello", fb->getRoot()->getPath());
+}
+
 #endif
