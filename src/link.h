@@ -14,12 +14,14 @@ class Link : public Node
 public:
     Link(std::string path, Node *node = nullptr) : Node(path), _node(node)
     {
-        if (nodeType != "symlink")
+        struct stat _st;
+        lstat(path.c_str(), &_st);
+        if (_st.st_mode & S_IFMT != S_IFLNK)
             throw(std::string("It is not Link!"));
         // Change the target of the symlink to Node
         _symlinkPath = new char[getPath().length()];
         strcpy(_symlinkPath, getPath().c_str());
-        // this->addLink(node);
+        this->addLink(node);
     }
 
     void accept(FindVisitor *fv) override

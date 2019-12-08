@@ -18,26 +18,47 @@ TEST(FileSystemTest, NodeTypeError)
 
 TEST(FileSystemBuilder, folder)
 {
-    FileSystemBuilder *fb = FileSystemBuilder::instance();
-    fb->build("test/test_folder");
-    ASSERT_EQ("test_folder", fb->getRoot()->name());
-    ASSERT_EQ("test/test_folder", fb->getRoot()->getPath());
+    try
+    {
+        FileSystemBuilder *fb = FileSystemBuilder::instance();
+        fb->build("test/test_folder");
+        ASSERT_EQ("test_folder", fb->getRoot()->name());
+        ASSERT_EQ("test/test_folder", fb->getRoot()->getPath());
+    }
+    catch (std::string e)
+    {
+        ASSERT_EQ("sss", e);
+    }
 }
 
 TEST(FileSystemBuilder, file)
 {
-    FileSystemBuilder *fb = FileSystemBuilder::instance();
-    fb->build("test/test_folder/hw/a.out");
-    ASSERT_EQ("a.out", fb->getRoot()->name());
-    ASSERT_EQ("test/test_folder/hw/a.out", fb->getRoot()->getPath());
+    try
+    {
+        FileSystemBuilder *fb = FileSystemBuilder::instance();
+        fb->build("test/test_folder/hw/a.out");
+        ASSERT_EQ("a.out", fb->getRoot()->name());
+        ASSERT_EQ("test/test_folder/hw/a.out", fb->getRoot()->getPath());
+    }
+    catch (std::string e)
+    {
+        ASSERT_EQ("sss", e);
+    }
 }
 
 TEST(FileSystemBuilder, link)
 {
-    FileSystemBuilder *fb = FileSystemBuilder::instance();
-    fb->build("test/test_folder/hello");
-    ASSERT_EQ("hello", fb->getRoot()->name());
-    ASSERT_EQ("test/test_folder/hello", fb->getRoot()->getPath());
+    try
+    {
+        FileSystemBuilder *fb = FileSystemBuilder::instance();
+        fb->build("test/test_folder/hello");
+        ASSERT_EQ("hello", fb->getRoot()->name());
+        ASSERT_EQ("test/test_folder/hello", fb->getRoot()->getPath());
+    }
+    catch (std::string e)
+    {
+        ASSERT_EQ("sss", e);
+    }
 }
 
 #endif
