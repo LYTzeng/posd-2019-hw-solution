@@ -5,6 +5,7 @@
 #include "node.h"
 #include "folder.h"
 #include "file.h"
+#include "link.h"
 #include "iterator.h"
 
 using strIterator = std::vector<std::string>::iterator;
@@ -22,27 +23,49 @@ FileSystemBuilder *FileSystemBuilder::instance()
 
 void FileSystemBuilder::build(std::string path)
 {
-    Folder *rootFolder = new Folder(path);
-    std::vector<std::string> children = _collectChildren(path);
-    for (strIterator it = children.begin(); it != children.end(); ++it)
+    struct stat _st;
+    stat(path.c_str(), &_st);
+    switch (_st.st_mode & S_IFMT)
     {
-        try
-        {
-            Node *childFolder = new Folder(path + "/" + *it);
-            rootFolder->addChild(childFolder);
-        }
-        catch (std::string err)
-        {
-            Node *childFile = new File(path + "/" + *it);
-            rootFolder->addChild(childFile);
-        }
+    case S_IFREG: // file
+        buildFile(path);
+        break;
+    case S_IFDIR: // folder
+        buildFolder(path);
+        break;
+    case S_IFLNK: // symlink
+        buildLink(path);
+        break;
     }
-    _root = rootFolder;
 }
 
 Node *FileSystemBuilder::getRoot()
 {
     return _root;
+}
+
+void FileSystemBuilder::buildFolder(std::string path)
+{
+    Folder *rootFolder = new Folder(path);
+    std::vector<std::string> children = _collectChildren(path);
+    for (strIterator it = children.begin(); it != children.end(); ++it)
+    {
+        FileSystemBuilder *fb = FileSystemBuilder::instance();
+        fb->build(path + "/" + *it);
+        rootFolder->addChild(fb->getRoot());
+    }
+    _root = rootFolder;
+}
+
+void FileSystemBuilder::buildFile(std::string path)
+{
+    _root = new File(path);
+}
+
+void FileSystemBuilder::buildLink(std::string path)
+{
+
+    _root = new Link(path);
 }
 
 std::vector<std::string> FileSystemBuilder::_collectChildren(std::string path)

@@ -22,5 +22,8 @@ private:
     static FileSystemBuilder *_builder;
     Node *_root;
     std::vector<std::string> _collectChildren(std::string path);
+    void buildFolder(std::string path);
+    void buildFile(std::string path);
+    void buildLink(std::string path);
 };
 #endif
