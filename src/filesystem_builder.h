@@ -2,7 +2,8 @@
 #define FILESYSTEM_BUILDER_H
 
 #include <string>
-#include <dirent.h>
+#include <vector>
+
 class Folder;
 class File;
 class Node;
@@ -11,7 +12,6 @@ class FileSystemBuilder
 {
 protected:
     FileSystemBuilder();
-    static FileSystemBuilder *builder;
 
 public:
     static FileSystemBuilder *instance();
@@ -19,7 +19,8 @@ public:
     Node *getRoot();
 
 private:
+    static FileSystemBuilder *_builder;
     Node *_root;
-    
+    std::vector<std::string> _collectChildren(std::string path);
 };
 #endif
