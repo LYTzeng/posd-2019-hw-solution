@@ -11,10 +11,10 @@ class File : public Node
 public:
     File(std::string path) : Node(path)
     {
-        // struct stat _st;
-        // lstat(path.c_str(), &_st);
-        // if (_st.st_mode & S_IFMT != S_IFREG)
-        //     throw(std::string("It is not File!"));
+        struct stat _st;
+        stat(path.c_str(), &_st);
+        if (!S_ISREG(_st.st_mode))
+            throw(std::string("It is not File!"));
     }
 
     Iterator *createIterator() override
