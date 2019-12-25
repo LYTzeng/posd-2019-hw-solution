@@ -13,8 +13,6 @@ WXLIB = $(SRC)/ui_folder_tree.h
 
 all: clean mkdir $(BIN)/ut_all $(BIN)/hw8
 
-hw8: $(BIN)/hw8
-
 $(BIN)/ut_all: $(TEST)/ut_main.cpp $(TEST)/ut_fs.h $(DynamicLIB) $(StaticLIB)
 	g++ $(CFLAGS) $(Wfatal) -o $@ $< $(StaticLIB) $(LIB)
 	$@ --gtest_catch_exceptions=1
@@ -27,6 +25,12 @@ obj/update_path_visitor.o: $(SRC)/update_path_visitor.cpp $(SRC)/update_path_vis
 
 $(BIN)/hw8: $(SRC)/ui_folder_tree.cpp $(WXLIB)
 	g++ $< `wx-config --cxxflags --libs` $(StaticLIB) -o $@
+	bin/hw8 test/test_folder/hw
+
+hw8: clean mkdir $(BIN)/hw8_no_test
+
+$(BIN)/hw8_no_test: $(SRC)/ui_folder_tree.cpp $(WXLIB) $(DynamicLIB) $(StaticLIB)
+	g++ $< `wx-config --cxxflags --libs` $(StaticLIB) -o $(BIN)/hw8
 	bin/hw8 test/test_folder/hw
 
 clean:

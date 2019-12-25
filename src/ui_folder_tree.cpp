@@ -7,7 +7,7 @@ IMPLEMENT_APP(FolderTreeApp)
 bool FolderTreeApp::OnInit()
 {
     wxCharBuffer buffer = wxApp::argv[1].mb_str();
-    wxFrame *frame = new TreeFrame(wxT("***Tree Test***"), 100, 100, 300, 200, buffer.data());
+    wxFrame *frame = new TreeFrame(wxT("***Tree Test***"), 100, 100, 1000, 600, buffer.data());
     frame->Show(true);
     SetTopWindow(frame);
     return true;
