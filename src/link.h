@@ -16,7 +16,7 @@ public:
     {
         struct stat _st;
         lstat(path.c_str(), &_st);
-        if (_st.st_mode & S_IFMT != S_IFLNK)
+        if (!S_ISLNK(_st.st_mode))
             throw(std::string("It is not Link!"));
         // Change the target of the symlink to Node
         _symlinkPath = new char[getPath().length()];
