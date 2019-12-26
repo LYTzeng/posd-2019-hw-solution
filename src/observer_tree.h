@@ -22,6 +22,7 @@ public:
         _subject->attach(this);
         _root = _subject->getRootState();
         wxTreeItemId rootId = _tree->AddRoot(std::string(_root->name() + ", " + std::to_string(_root->size())).c_str());
+        _subject->setTreeNodeItemId(rootId, _root);
         growTree(rootId, _root);
         _tree->ExpandAllChildren(rootId);
     }
@@ -35,17 +36,24 @@ public:
             if (currentNode->nodeType == "file" || currentNode->nodeType == "symlink")
             {
                 wxTreeItemId leafId = _tree->AppendItem(rootId, std::string(currentNode->name() + ", " + std::to_string(currentNode->size())).c_str()); // leaf node
+                _subject->setTreeNodeItemId(leafId, currentNode);
             }
             else if (currentNode->nodeType == "folder")
             {
                 wxTreeItemId internalNodeId = _tree->AppendItem(rootId, std::string(currentNode->name() + ", " + std::to_string(currentNode->size())).c_str()); // internal node
+                _subject->setTreeNodeItemId(internalNodeId, currentNode);
                 growTree(internalNodeId, it->currentItem());
             }
         }
     }
 
-    void update()
+    void update(wxTreeItemId savedFileId) override
     {
+        Node *updatedNode = _subject->getNodeById(savedFileId);
+        std::string newTreeNodeText = updatedNode->name() + ", " + std::to_string(updatedNode->size());
+        wxString wxNewTreeNodeText(newTreeNodeText);
+        _tree->SetItemText(savedFileId, wxNewTreeNodeText);
+        _tree->Refresh();
     }
 
 private:

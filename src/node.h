@@ -35,7 +35,8 @@ public:
 
     int size()
     {
-        return _st.st_size;
+        lstat(_path.c_str(), &_stUpdate);
+        return _stUpdate.st_size;
     }
 
     virtual void addChild(Node *child)
@@ -85,6 +86,7 @@ public:
 
 private:
     struct stat _st;
+    struct stat _stUpdate;
     std::string _path;
 };
 

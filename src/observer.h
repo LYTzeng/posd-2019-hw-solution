@@ -1,10 +1,12 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
+#include <wx/treectrl.h>
+
 class Observer
 {
 public:
-    virtual void update() = 0;
+    virtual void update(wxTreeItemId savedFileId) = 0;
 };
 
 #endif

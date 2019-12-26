@@ -30,8 +30,10 @@ $(BIN)/hw8: $(SRC)/ui_folder_tree.cpp $(WXLIB)
 hw8: clean mkdir $(BIN)/hw8_no_test
 
 $(BIN)/hw8_no_test: $(SRC)/ui_folder_tree.cpp $(WXLIB) $(DynamicLIB) $(StaticLIB)
-	g++ $< `wx-config --cxxflags --libs` $(StaticLIB) -o $(BIN)/hw8
-	bin/hw8 test/test_folder/hw
+	g++ $< `wx-config --cxxflags --libs` $(Wfatal) $(StaticLIB) -o $(BIN)/hw8
+	rm -rf test/test_folder
+	cp -r test/test_folder_backup test/test_folder
+	bin/hw8 test/test_folder
 
 clean:
 	rm -f $(BIN)/*
