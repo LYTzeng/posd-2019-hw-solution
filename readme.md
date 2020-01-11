@@ -4,6 +4,7 @@
 請注意作業並沒有每次滿分，但8次作業平均分數為95.375，因此放上來供來自未來的學弟妹參考。
 
 8次作業分別用不同的 Branch 儲存，使用 `git checkout branch-name` 來切換你要參考的作業。
+我把原本的作業題目做了 Mirror，在[這裡](https://github.com/LYTzeng/POSD2019f_Assignment)。
 
 ## 2次期中考分數與扣分原因
 
