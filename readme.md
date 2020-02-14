@@ -6,6 +6,8 @@
 8次作業分別用不同的 Branch 儲存，使用 `git checkout branch-name` 來切換你要參考的作業。
 我把原本的作業題目做了 Mirror，在[這裡](https://github.com/LYTzeng/POSD2019f_Assignment)。
 
+如果對 GO language 有興去，可以參考這個 [Repo](https://github.com/LYTzeng/goposd) 部分 POSD 程式碼我有使用 GO 重新練習實作。使用 GO 實現 OOP 和 Design Pattern 的過程中會發現某些思維是和 C++ 或 Python 不同的。
+
 ## 2次期中考分數與扣分原因
 
 | 考試   | 分數 | 扣分原因                                                                  | Branch 切換語法               |
